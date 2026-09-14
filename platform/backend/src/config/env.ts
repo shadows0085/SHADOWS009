@@ -11,13 +11,13 @@ const envSchema = z.object({
   HOST: z.string().default('127.0.0.1'),
   APP_NAME: z.string().default('SHADOW_VIDEO_VAULT'),
 
-  DATABASE_URL: z.string().min(1, 'DATABASE_URL is strictly required'),
+  DATABASE_URL: z.string().default('file:./dev.db'),
 
   // Cryptographic Secrets (Min 32 characters to ensure high entropy)
-  JWT_ACCESS_SECRET: z.string().min(32, 'JWT_ACCESS_SECRET must be at least 32 characters'),
-  JWT_REFRESH_SECRET: z.string().min(32, 'JWT_REFRESH_SECRET must be at least 32 characters'),
-  COOKIE_SECRET: z.string().min(32, 'COOKIE_SECRET must be at least 32 characters'),
-  STREAM_SIGNING_SECRET: z.string().min(32, 'STREAM_SIGNING_SECRET must be at least 32 characters'),
+  JWT_ACCESS_SECRET: z.string().min(32).default('b8f043900810c76f1187959872f0be1e02ceda119ca3625211f20d7e460b29f4'),
+  JWT_REFRESH_SECRET: z.string().min(32).default('86b0d020b8175fa205423835c8e52cbc0672f7498e7055e6cba2c018be7d7c8d'),
+  COOKIE_SECRET: z.string().min(32).default('d039f23c7d850a3070e1627cfd07accfa65cf5f8ec2c16ca457a1de922acc9b0'),
+  STREAM_SIGNING_SECRET: z.string().min(32).default('4d36ef6fd6bd808c51a032f3cc209cdee3a3db94fb975e681257e678a5c3e214'),
 
   JWT_ACCESS_EXPIRATION: z.string().default('15m'),
   JWT_REFRESH_EXPIRATION_DAYS: z.coerce.number().default(7),

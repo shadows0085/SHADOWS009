@@ -5,18 +5,8 @@ const prisma_client_1 = require("./prisma.client");
 class AdminRepository {
     static async findByEmail(identifier) {
         const clean = identifier.toLowerCase().trim();
-        if (clean === 'admin') {
-            const byVault = await prisma_client_1.prisma.admin.findUnique({ where: { email: 'admin@vault.local' } });
-            if (byVault)
-                return byVault;
-        }
-        const direct = await prisma_client_1.prisma.admin.findUnique({
+        return prisma_client_1.prisma.admin.findUnique({
             where: { email: clean }
-        });
-        if (direct)
-            return direct;
-        return prisma_client_1.prisma.admin.findFirst({
-            where: { name: { equals: clean } }
         });
     }
     static async findById(id) {

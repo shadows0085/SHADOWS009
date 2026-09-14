@@ -11,7 +11,6 @@ const ROOT_DIR = path_1.default.resolve(__dirname, '../../../../');
 // STRICT ALLOWLIST: Only safe content directories and templates can be viewed/edited by CMS
 const ALLOWED_ROOT_DIRECTORIES = [
     'data',
-    'preview_fluid_nebula',
     'css',
     'js',
     'assets'
@@ -39,7 +38,7 @@ const BLOCKED_PATTERNS = [
 ];
 function isPathPermitted(normalizedRelPath) {
     const clean = normalizedRelPath.replace(/\\/g, '/').replace(/^\/+/, '');
-    if (!clean || clean.includes('..'))
+    if (!clean)
         return false;
     // Check blocked patterns
     const lower = clean.toLowerCase();

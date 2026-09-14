@@ -70,7 +70,7 @@ async function writeVideosJson(data, expectedVersion) {
         const currentContent = fs_1.default.readFileSync(VIDEOS_JSON_PATH, 'utf-8');
         const current = JSON.parse(currentContent);
         const currentVersion = current.version || 1;
-        if (expectedVersion !== undefined && currentVersion !== expectedVersion) {
+        if (expectedVersion === undefined || currentVersion !== expectedVersion) {
             const err = new Error('CONCURRENT_MODIFICATION');
             err.statusCode = 409;
             err.code = 'CONCURRENT_MODIFICATION';

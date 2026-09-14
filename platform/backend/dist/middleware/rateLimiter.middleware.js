@@ -14,7 +14,7 @@ exports.authRateLimiter = (0, express_rate_limit_1.default)({
     max: env_1.env.MAX_LOGIN_ATTEMPTS,
     standardHeaders: true,
     legacyHeaders: false,
-    skip: (req) => env_1.env.NODE_ENV === 'test' || env_1.env.NODE_ENV === 'development' || req.ip === '127.0.0.1' || req.ip === '::1',
+    skip: () => env_1.env.NODE_ENV === 'test',
     message: {
         success: false,
         error: {

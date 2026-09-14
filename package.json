@@ -4,6 +4,7 @@
   "description": "SHADOW — Video Editor & Motion Designer Portfolio",
   "main": "server.js",
   "scripts": {
+    "postinstall": "cd platform/backend && npm install --include=dev && npx prisma generate",
     "build": "node -e \"console.log('Build complete')\"",
     "build:all": "npm install && cd platform/backend && npm install && npx prisma generate && npx tsc && cd ../frontend && npm install && npm run build && cd ../..",
     "start": "node server.js",

@@ -10,23 +10,24 @@ export declare const createProjectSchema: z.ZodObject<{
     size: z.ZodDefault<z.ZodOptional<z.ZodString>>;
     thumb: z.ZodOptional<z.ZodEffects<z.ZodEffects<z.ZodEffects<z.ZodString, string, string>, string, string>, string, string>>;
     thumb_color: z.ZodOptional<z.ZodEffects<z.ZodEffects<z.ZodEffects<z.ZodString, string, string>, string, string>, string, string>>;
-    expectedVersion: z.ZodOptional<z.ZodNumber>;
+    expectedVersion: z.ZodNumber;
 }, "strip", z.ZodTypeAny, {
     title: string;
     file: string;
     category: string;
     size: string;
+    expectedVersion: number;
     meta?: string | undefined;
     id?: string | undefined;
     cat_label?: string | undefined;
     thumb_color?: string | undefined;
     assetId?: string | undefined;
     thumb?: string | undefined;
-    expectedVersion?: number | undefined;
 }, {
     title: string;
     file: string;
     category: string;
+    expectedVersion: number;
     meta?: string | undefined;
     id?: string | undefined;
     cat_label?: string | undefined;
@@ -34,7 +35,6 @@ export declare const createProjectSchema: z.ZodObject<{
     thumb_color?: string | undefined;
     assetId?: string | undefined;
     thumb?: string | undefined;
-    expectedVersion?: number | undefined;
 }>;
 export declare const updateProjectSchema: z.ZodObject<{
     title: z.ZodOptional<z.ZodEffects<z.ZodEffects<z.ZodEffects<z.ZodString, string, string>, string, string>, string, string>>;
@@ -46,8 +46,9 @@ export declare const updateProjectSchema: z.ZodObject<{
     size: z.ZodOptional<z.ZodString>;
     thumb: z.ZodOptional<z.ZodEffects<z.ZodEffects<z.ZodEffects<z.ZodString, string, string>, string, string>, string, string>>;
     thumb_color: z.ZodOptional<z.ZodEffects<z.ZodEffects<z.ZodEffects<z.ZodString, string, string>, string, string>, string, string>>;
-    expectedVersion: z.ZodOptional<z.ZodNumber>;
+    expectedVersion: z.ZodNumber;
 }, "strict", z.ZodTypeAny, {
+    expectedVersion: number;
     meta?: string | undefined;
     title?: string | undefined;
     file?: string | undefined;
@@ -57,8 +58,8 @@ export declare const updateProjectSchema: z.ZodObject<{
     thumb_color?: string | undefined;
     assetId?: string | undefined;
     thumb?: string | undefined;
-    expectedVersion?: number | undefined;
 }, {
+    expectedVersion: number;
     meta?: string | undefined;
     title?: string | undefined;
     file?: string | undefined;
@@ -68,7 +69,6 @@ export declare const updateProjectSchema: z.ZodObject<{
     thumb_color?: string | undefined;
     assetId?: string | undefined;
     thumb?: string | undefined;
-    expectedVersion?: number | undefined;
 }>;
 export declare const heroSchema: z.ZodObject<{
     src: z.ZodOptional<z.ZodEffects<z.ZodEffects<z.ZodEffects<z.ZodString, string, string>, string, string>, string, string>>;
@@ -76,21 +76,21 @@ export declare const heroSchema: z.ZodObject<{
     type: z.ZodOptional<z.ZodEffects<z.ZodEffects<z.ZodEffects<z.ZodString, string, string>, string, string>, string, string>>;
     label: z.ZodOptional<z.ZodEffects<z.ZodEffects<z.ZodEffects<z.ZodString, string, string>, string, string>, string, string>>;
     badge: z.ZodOptional<z.ZodEffects<z.ZodEffects<z.ZodEffects<z.ZodString, string, string>, string, string>, string, string>>;
-    expectedVersion: z.ZodOptional<z.ZodNumber>;
+    expectedVersion: z.ZodNumber;
 }, "strict", z.ZodTypeAny, {
+    expectedVersion: number;
     type?: string | undefined;
     assetId?: string | undefined;
     src?: string | undefined;
     label?: string | undefined;
     badge?: string | undefined;
-    expectedVersion?: number | undefined;
 }, {
+    expectedVersion: number;
     type?: string | undefined;
     assetId?: string | undefined;
     src?: string | undefined;
     label?: string | undefined;
     badge?: string | undefined;
-    expectedVersion?: number | undefined;
 }>;
 export declare const showcaseSchema: z.ZodObject<{
     title: z.ZodOptional<z.ZodEffects<z.ZodEffects<z.ZodEffects<z.ZodString, string, string>, string, string>, string, string>>;
@@ -105,8 +105,9 @@ export declare const showcaseSchema: z.ZodObject<{
     resolution: z.ZodOptional<z.ZodEffects<z.ZodEffects<z.ZodEffects<z.ZodString, string, string>, string, string>, string, string>>;
     duration: z.ZodOptional<z.ZodEffects<z.ZodEffects<z.ZodEffects<z.ZodString, string, string>, string, string>, string, string>>;
     progress: z.ZodOptional<z.ZodEffects<z.ZodEffects<z.ZodEffects<z.ZodString, string, string>, string, string>, string, string>>;
-    expectedVersion: z.ZodOptional<z.ZodNumber>;
+    expectedVersion: z.ZodNumber;
 }, "strict", z.ZodTypeAny, {
+    expectedVersion: number;
     title?: string | undefined;
     duration?: string | undefined;
     description?: string | undefined;
@@ -114,13 +115,13 @@ export declare const showcaseSchema: z.ZodObject<{
     category?: string | undefined;
     assetId?: string | undefined;
     badge?: string | undefined;
-    expectedVersion?: number | undefined;
     plainTitle?: string | undefined;
     productionTime?: string | undefined;
     locations?: string | undefined;
     resolution?: string | undefined;
     progress?: string | undefined;
 }, {
+    expectedVersion: number;
     title?: string | undefined;
     duration?: string | undefined;
     description?: string | undefined;
@@ -128,7 +129,6 @@ export declare const showcaseSchema: z.ZodObject<{
     category?: string | undefined;
     assetId?: string | undefined;
     badge?: string | undefined;
-    expectedVersion?: number | undefined;
     plainTitle?: string | undefined;
     productionTime?: string | undefined;
     locations?: string | undefined;
@@ -200,8 +200,9 @@ export declare const notificationsSchema: z.ZodObject<{
         actionText?: string | undefined;
         actionLink?: string | undefined;
     }>, "many">;
-    expectedVersion: z.ZodOptional<z.ZodNumber>;
+    expectedVersion: z.ZodNumber;
 }, "strict", z.ZodTypeAny, {
+    expectedVersion: number;
     globalEnabled: boolean;
     items: {
         message: string;
@@ -214,9 +215,9 @@ export declare const notificationsSchema: z.ZodObject<{
         actionText?: string | undefined;
         actionLink?: string | undefined;
     }[];
-    expectedVersion?: number | undefined;
     activeId?: string | undefined;
 }, {
+    expectedVersion: number;
     globalEnabled: boolean;
     items: {
         message: string;
@@ -229,6 +230,5 @@ export declare const notificationsSchema: z.ZodObject<{
         actionText?: string | undefined;
         actionLink?: string | undefined;
     }[];
-    expectedVersion?: number | undefined;
     activeId?: string | undefined;
 }>;

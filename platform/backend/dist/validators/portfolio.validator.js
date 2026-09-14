@@ -9,7 +9,7 @@ const sanitizeString = (maxLen) => zod_1.z
     .refine((val) => !/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi.test(val), { message: 'Script tags are strictly prohibited.' })
     .refine((val) => !/on\w+\s*=/i.test(val), { message: 'Inline event handlers (e.g. onerror, onclick) are prohibited.' })
     .refine((val) => !/javascript\s*:/i.test(val), { message: 'Javascript URIs are prohibited.' });
-const expectedVersionSchema = zod_1.z.number().int().positive().optional();
+const expectedVersionSchema = zod_1.z.number().int().positive();
 exports.createProjectSchema = zod_1.z.object({
     id: sanitizeString(64).optional(),
     assetId: sanitizeString(64).optional(),
