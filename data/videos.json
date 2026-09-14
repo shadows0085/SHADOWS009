@@ -1,0 +1,230 @@
+{
+  "hero": {
+    "src": "uploaded-video/custom_mtyi0ot5_Man_looking_at_ocean_sunset_20260911231855.mp4",
+    "assetId": "asset-hero-showreel",
+    "type": "video",
+    "label": "Showreel 2026",
+    "badge": "◆ 4K HDR"
+  },
+  "showcase": {
+    "title": "<em>Urban</em><br>Mirage",
+    "plainTitle": "Urban Mirage 2026",
+    "assetId": "asset-showcase-featured",
+    "file": "uploaded-video/custom_mtykrpr1_betufull_places_showing_1080p_20260912120058.mp4",
+    "category": "Commercial · 4K HDR",
+    "badge": "Featured",
+    "description": "An architectural visual symphony — this commercial campaign captured the interplay of light, glass, and geometric symmetry through precision cinematography and master color grading.",
+    "productionTime": "4 wks",
+    "locations": "2 cities",
+    "resolution": "4K HDR",
+    "duration": "2:34 / 4:12",
+    "progress": "61%"
+  },
+  "notifications": {
+    "globalEnabled": false,
+    "activeId": "notif-1",
+    "items": [
+      {
+        "id": "notif-1",
+        "enabled": true,
+        "title": "Open for Bookings",
+        "message": "Now accepting commercial video editing & motion design projects for 2025/2026.",
+        "badge": "AVAILABLE",
+        "type": "gold",
+        "actionText": "Get in Touch",
+        "actionLink": "#contact"
+      },
+      {
+        "id": "notif-2",
+        "enabled": false,
+        "title": "Studio Notice / Production Mode",
+        "message": "Currently on-site shooting production. Inquiries will be answered within 24 hours.",
+        "badge": "ON SET",
+        "type": "alert",
+        "actionText": "Contact",
+        "actionLink": "#contact"
+      },
+      {
+        "id": "notif-3",
+        "enabled": false,
+        "title": "Featured Reel Update",
+        "message": "New 4K HDR Urban Mirage project added to the interactive portfolio showcase.",
+        "badge": "NEW SHOWREEL",
+        "type": "info",
+        "actionText": "Watch Video",
+        "actionLink": "#portfolio"
+      }
+    ]
+  },
+  "portfolio": [
+    {
+      "id": "project-urban-mirage",
+      "assetId": "asset-urban-mirage",
+      "file": "uploaded-video/no-1.mp4",
+      "title": "Urban Mirage",
+      "category": "commercial",
+      "cat_label": "Commercial · 4K HDR",
+      "meta": "Real Estate Campaign — 2024",
+      "size": "card-lg",
+      "thumb_color": "thumb-1",
+      "thumb_glow": [
+        {
+          "w": 220,
+          "h": 220,
+          "color": "rgba(64,100,200,0.4)",
+          "top": "20%",
+          "left": "30%"
+        },
+        {
+          "w": 140,
+          "h": 140,
+          "color": "rgba(100,150,255,0.3)",
+          "top": "60%",
+          "right": "20%",
+          "delay": "-2s"
+        }
+      ]
+    },
+    {
+      "id": "project-sun-onlight",
+      "assetId": "asset-sun-onlight",
+      "file": "uploaded-video/custom_mtycguww_Motion_designer_creating_Shadow_____20260910152753.mp4",
+      "title": "SUN ONLIGHT",
+      "category": "commercial",
+      "cat_label": "Commercial · 4K HDR",
+      "meta": "Solar Energy Campaign — 2025",
+      "size": "card-sm",
+      "thumb_color": "thumb-2",
+      "thumb_glow": [
+        {
+          "w": 220,
+          "h": 220,
+          "color": "rgba(201,168,76,0.4)",
+          "top": "20%",
+          "left": "30%"
+        },
+        {
+          "w": 140,
+          "h": 140,
+          "color": "rgba(255,200,80,0.3)",
+          "top": "60%",
+          "right": "20%",
+          "delay": "-2s"
+        }
+      ]
+    },
+    {
+      "id": "project-silent-waters",
+      "assetId": "asset-silent-waters",
+      "file": "uploaded-video/custom_mtxz93i8_betufull_places_showing_1080p_20260912120058.mp4",
+      "title": "Silent Waters",
+      "category": "film",
+      "cat_label": "Film · 4K DCI HDR",
+      "meta": "Nordic Narrative Short — 2025",
+      "size": "card-sm",
+      "thumb_color": "thumb-3",
+      "thumb_glow": [
+        {
+          "w": 200,
+          "h": 200,
+          "color": "rgba(40,120,200,0.35)",
+          "top": "25%",
+          "left": "20%"
+        },
+        {
+          "w": 130,
+          "h": 130,
+          "color": "rgba(80,180,240,0.25)",
+          "bottom": "20%",
+          "right": "25%",
+          "delay": "-1.5s"
+        }
+      ]
+    },
+    {
+      "id": "project-amber-hours",
+      "assetId": "asset-amber-hours",
+      "file": "uploaded-video/no-2.mp4",
+      "title": "Amber Hours",
+      "category": "motion",
+      "cat_label": "Motion · 4K 60FPS",
+      "meta": "Luxury Horology Film — 2024",
+      "size": "card-lg",
+      "thumb_color": "thumb-4",
+      "thumb_glow": [
+        {
+          "w": 210,
+          "h": 210,
+          "color": "rgba(235,140,40,0.4)",
+          "top": "15%",
+          "right": "25%"
+        },
+        {
+          "w": 130,
+          "h": 130,
+          "color": "rgba(255,180,70,0.3)",
+          "bottom": "20%",
+          "left": "25%",
+          "delay": "-2.5s"
+        }
+      ]
+    },
+    {
+      "id": "project-velocity",
+      "assetId": "asset-velocity",
+      "file": "uploaded-video/custom_mtydc5of_betufull_places_showing_1080p_20260912120058.mp4",
+      "title": "Velocity",
+      "category": "vfx",
+      "cat_label": "VFX · Super Slow-Mos",
+      "meta": "Motorsport Launch — 2025",
+      "size": "card-md",
+      "thumb_color": "thumb-5",
+      "thumb_glow": [
+        {
+          "w": 220,
+          "h": 220,
+          "color": "rgba(220,60,60,0.35)",
+          "top": "20%",
+          "left": "25%"
+        },
+        {
+          "w": 140,
+          "h": 140,
+          "color": "rgba(255,100,50,0.25)",
+          "bottom": "25%",
+          "right": "20%",
+          "delay": "-1s"
+        }
+      ]
+    },
+    {
+      "id": "project-neon-reverie",
+      "assetId": "asset-neon-reverie",
+      "file": "uploaded-video/custom_mtxxwlrt_Man_looking_at_ocean_sunset_20260911231855.mp4",
+      "title": "Neon Reverie",
+      "category": "motion",
+      "cat_label": "Motion · Cybernetic Flow",
+      "meta": "Tokyo Nocturne Showcase — 2025",
+      "size": "card-md",
+      "thumb_color": "thumb-6",
+      "thumb_glow": [
+        {
+          "w": 200,
+          "h": 200,
+          "color": "rgba(180,60,220,0.4)",
+          "top": "30%",
+          "right": "25%"
+        },
+        {
+          "w": 120,
+          "h": 120,
+          "color": "rgba(100,60,240,0.3)",
+          "bottom": "20%",
+          "left": "25%",
+          "delay": "-3s"
+        }
+      ]
+    }
+  ],
+  "version": 8
+}

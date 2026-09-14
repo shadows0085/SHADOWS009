@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SHADOW // Security Operations Center (SOC)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-body">
+  <div class="admin-grid-bg"></div>
+
+  <!-- Header -->
+  <header class="admin-header">
+    <div class="admin-brand">
+      <a href="index.html" class="admin-logo">SHADOW</a>
+      <span class="admin-badge">Vault Telemetry Console</span>
+    </div>
+    <div class="admin-actions">
+      <button class="btn-danger" id="killswitchBtn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18.36 6.64a9 9 0 1 1-12.73 0M12 2v10"/></svg>
+        Revoke All Active Tokens
+      </button>
+      <a href="index.html" class="btn-secondary">Return to Portfolio</a>
+      <button class="btn-secondary" id="logoutBtn">Logout</button>
+    </div>
+  </header>
+
+  <!-- Main Dashboard Container -->
+  <main class="admin-container">
+    <!-- Key Telemetry Metrics -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-header">
+          <span>Active Vault Streams</span>
+          <span style="color:var(--accent-green)">● LIVE</span>
+        </div>
+        <div class="metric-val" id="metricStreams">0</div>
+        <div class="metric-sub">Authenticated range requests last hour</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-header">
+          <span>Blocked Attempts</span>
+          <span style="color:var(--accent-red)">● ENFORCED</span>
+        </div>
+        <div class="metric-val" id="metricBlocked" style="color:var(--accent-red)">0</div>
+        <div class="metric-sub">Expired tokens, hotlinks, scraping</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-header">
+          <span>DevTools / Screen Deterrence</span>
+          <span style="color:var(--accent-gold)">● TRIPPED</span>
+        </div>
+        <div class="metric-val" id="metricDevtools">0</div>
+        <div class="metric-sub">Focus loss & console/inspector triggers</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-header">
+          <span>Rate Limit Incidents</span>
+          <span style="color:var(--accent-blue)">● THROTTLED</span>
+        </div>
+        <div class="metric-val" id="metricRateLimits">0</div>
+        <div class="metric-sub">Automated request thresholds hit</div>
+      </div>
+    </div>
+
+    <!-- Main Columns -->
+    <div class="dashboard-columns">
+      <!-- Left: Real-time Audit Log Stream -->
+      <div class="panel-card">
+        <div class="panel-title">
+          <span>Live Security Audit Stream</span>
+          <span style="font-size:11px;color:var(--text-muted);font-weight:normal" id="lastUpdated">Updated just now</span>
+        </div>
+        <div style="overflow-x:auto;max-height:560px;overflow-y:auto">
+          <table class="event-table">
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Type</th>
+                <th>IP / Origin</th>
+                <th>Session</th>
+                <th>Severity</th>
+                <th>Details</th>
+              </tr>
+            </thead>
+            <tbody id="auditTableBody">
+              <tr>
+                <td colspan="6" style="text-align:center;padding:30px;color:var(--text-muted)">Connecting to telemetry stream...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Right: Active Sessions & Storage Vault Status -->
+      <div>
+        <div class="panel-card">
+          <div class="panel-title">Vault Cryptography Status</div>
+          <div style="font-size:12px;line-height:1.8;color:var(--text-muted)">
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+              <span>Cipher Scheme:</span>
+              <span style="color:var(--text-main);font-family:var(--font-mono)">AES-256-GCM</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+              <span>Auth Tag Length:</span>
+              <span style="color:var(--text-main);font-family:var(--font-mono)">128-bit (16B)</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+              <span>Token Signature:</span>
+              <span style="color:var(--text-main);font-family:var(--font-mono)">HMAC-SHA256</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+              <span>Token TTL:</span>
+              <span style="color:var(--accent-gold);font-family:var(--font-mono)">90 Seconds</span>
+            </div>
+            <div style="display:flex;justify-content:space-between">
+              <span>Key Storage:</span>
+              <span style="color:var(--accent-green);font-family:var(--font-mono)">Isolated Server Memory</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-card">
+          <div class="panel-title">Active Media Tickets (<span id="activeTicketsCount">0</span>)</div>
+          <div id="activeTicketsList" style="font-size:12px;max-height:220px;overflow-y:auto">
+            <div style="color:var(--text-muted);text-align:center;padding:15px">No tickets currently streaming</div>
+          </div>
+        </div>
+
+        <div class="panel-card">
+          <div class="panel-title">Active Visitor Sessions (<span id="activeSessionsCount">0</span>)</div>
+          <div id="activeSessionsList" style="font-size:12px;max-height:200px;overflow-y:auto">
+            <div style="color:var(--text-muted);text-align:center;padding:15px">Scanning active sessions...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Admin Login Modal Overlay -->
+  <div class="admin-auth-overlay" id="adminAuthOverlay" style="display:none">
+    <div class="admin-auth-box">
+      <div class="admin-auth-title">SHADOW SOC</div>
+      <div class="admin-auth-sub">Administrative Security Clearance Required</div>
+      <form id="adminLoginForm">
+        <div class="admin-input-group">
+          <label>Operator Username</label>
+          <input type="text" id="adminUser" placeholder="Username" required autocomplete="username">
+        </div>
+        <div class="admin-input-group">
+          <label>Security Keyphrase</label>
+          <input type="password" id="adminPass" placeholder="••••••••••••••••" required autocomplete="current-password">
+        </div>
+        <div id="loginError" style="color:var(--accent-red);font-size:12px;margin-bottom:12px;display:none"></div>
+        <button type="submit" class="btn-primary-admin">Authenticate Session</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/admin-dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  # 1. Relational Database - PostgreSQL 16 Alpine
+  postgres:
+    image: postgres:16-alpine
+    container_name: shadow-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-SecureDbPass2025!}
+      POSTGRES_DB: ${POSTGRES_DB:-video_management}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # 2. In-Memory Store & Queue Broker - Redis 7 Alpine
+  redis:
+    image: redis:7-alpine
+    container_name: shadow-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-RedisSecure2025!}
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD:-RedisSecure2025!}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # 3. Secure Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ../docker/Dockerfile.backend
+    container_name: shadow-backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-SecureDbPass2025!}@postgres:5432/${POSTGRES_DB:-video_management}?schema=public
+      JWT_ACCESS_SECRET: ${JWT_ACCESS_SECRET:-shd_sec_acc_98a72e61fc72a1b94d930219c8f6120e5d4a}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-shd_sec_ref_41d9c028a7e531980f723bc1106e59aa238d}
+      COOKIE_SECRET: ${COOKIE_SECRET:-shd_cookie_sec_89b21f09c8e192a74e5d321098fc716a}
+      STREAM_SIGNING_SECRET: ${STREAM_SIGNING_SECRET:-shd_stream_hmac_9021873198a0ef9812739a8c7e61}
+      LOCAL_STORAGE_PATH: /app/uploads
+      ALLOWED_ORIGINS: "http://localhost:3000,http://localhost:80,http://frontend"
+    volumes:
+      - video_uploads:/app/uploads
+    ports:
+      - "4000:4000"
+
+  # 4. Frontend & Reverse Proxy
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ../docker/Dockerfile.frontend
+    container_name: shadow-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "3000:80"
+
+volumes:
+  postgres_data:
+  redis_data:
+  video_uploads:

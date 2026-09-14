@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en" style="background-color: #050e0a !important; background: #050e0a !important;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHADOW — Video Editor & Motion Designer</title>
+<meta name="description" content="SHADOW Studio — Professional Video Editor & Motion Designer crafting cinematic experiences through precision editing, motion graphics, and visual effects.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,SOFT,WONK,ital@9..144,0..100,0..1,0;9..144,0..100,0..1,1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=12.4">
+<link rel="stylesheet" href="css/animations.css?v=12.1">
+<link rel="stylesheet" href="css/security.css?v=1.4">
+<link rel="stylesheet" href="css/responsive.css?v=12.2">
+<style>
+/* Instant Permanent Dark Background Guarantee (Zero blank screen on reload) */
+html, body {
+  background-color: #050e0a !important;
+  background: #050e0a !important;
+  color: #e8f2ec;
+}
+#hero, .hero-bg {
+  background-color: #050e0a !important;
+}
+/* ═══════════════════════════════════════════════════════════
+   LIVE ANNOUNCEMENT BANNER (Synced with CMS)
+   ═══════════════════════════════════════════════════════════ */
+.site-announcement-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10001;
+  background: rgba(10, 14, 24, 0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(201, 168, 76, 0.25);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(201, 168, 76, 0.08);
+  transform: translateY(-100%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+.site-announcement-banner.is-visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+body.has-banner nav {
+  top: 36px !important;
+}
+@media (max-width: 768px) {
+  body.has-banner nav {
+    top: 50px !important;
+  }
+}
+.announcement-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 8px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: 12px;
+  color: #e2e8f0;
+}
+.announcement-pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #c9a84c;
+  box-shadow: 0 0 10px #c9a84c;
+  flex-shrink: 0;
+  animation: pulseGold 2s infinite ease-in-out;
+}
+.announcement-badge {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+.announcement-badge.badge-gold {
+  background: rgba(201, 168, 76, 0.15);
+  color: #c9a84c;
+  border: 1px solid rgba(201, 168, 76, 0.35);
+}
+.announcement-badge.badge-alert {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.35);
+}
+.announcement-badge.badge-info {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+}
+.announcement-badge.badge-success {
+  background: rgba(52, 211, 153, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(52, 211, 153, 0.35);
+}
+.announcement-text {
+  font-weight: 400;
+  color: #f1f5f9;
+  letter-spacing: 0.01em;
+}
+.announcement-btn {
+  padding: 3px 10px;
+  border-radius: 5px;
+  background: rgba(201, 168, 76, 0.15);
+  border: 1px solid rgba(201, 168, 76, 0.4);
+  color: #e8c97a;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 11px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+.announcement-btn:hover {
+  background: rgba(201, 168, 76, 0.3);
+  color: #ffffff;
+  border-color: rgba(201, 168, 76, 0.7);
+}
+.announcement-dismiss {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 4px 6px;
+  font-size: 13px;
+  line-height: 1;
+  transition: color 0.2s ease;
+  margin-left: 8px;
+}
+.announcement-dismiss:hover {
+  color: #f8fafc;
+}
+@keyframes pulseGold {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+</style>
+</head>
+<body style="background-color: #050e0a !important; background: #050e0a !important;">
+
+<!-- SVG ICON SPRITE — Enhanced with glow filters + unique designs -->
+<svg class="icon-sprite" aria-hidden="true">
+  <!-- Glow filter definitions -->
+  <defs>
+    <filter id="glow-gold" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feFlood flood-color="rgba(201,168,76,0.4)" result="color"/>
+      <feComposite in="color" in2="blur" operator="in" result="shadow"/>
+      <feMerge>
+        <feMergeNode in="shadow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <linearGradient id="gold-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c9a84c"/>
+      <stop offset="100%" stop-color="#e8c97a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Spark — 8-Point Diamond Starburst with Aperture Core -->
+  <symbol id="icon-spark" viewBox="0 0 24 24">
+    <path d="M12 1.5l2.2 6.3 6.3 2.2-6.3 2.2-2.2 6.3-2.2-6.3L3.5 10l6.3-2.2L12 1.5z" stroke-width="1.3" stroke-linejoin="round"/>
+    <path d="M12 6.5l1.2 3.5 3.5 1.2-3.5 1.2-1.2 3.5-1.2-3.5-3.5-1.2 3.5-1.2 1.2-3.5z" stroke-width="0.9" opacity="0.6"/>
+    <circle cx="12" cy="11.2" r="1.5" fill="currentColor" stroke="none"/>
+    <path d="M19.5 3.5l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8.8-2z" stroke-width="0.8"/>
+    <path d="M4.5 16.5l.6 1.6 1.6.6-1.6.6-.6 1.6-.6-1.6-1.6-.6 1.6-.6.6-1.6z" stroke-width="0.8"/>
+  </symbol>
+
+  <!-- Cut — Cinematic Timeline Scalpel & Film Gate -->
+  <symbol id="icon-cut" viewBox="0 0 24 24">
+    <path d="M4 4l16 16" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M20 4L4 20" stroke-width="1.6" stroke-linecap="round"/>
+    <circle cx="6.5" cy="17.5" r="2.8" stroke-width="1.3"/>
+    <circle cx="6.5" cy="6.5" r="2.8" stroke-width="1.3"/>
+    <path d="M14 6l6-2v4l-6-2z" stroke-width="1" fill="currentColor" fill-opacity="0.15"/>
+    <path d="M14 18l6 2v-4l-6 2z" stroke-width="1" fill="currentColor" fill-opacity="0.15"/>
+    <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/>
+  </symbol>
+
+  <!-- Play — Beveled Cinematic Prism -->
+  <symbol id="icon-play" viewBox="0 0 24 24">
+    <path d="M7.5 4.5v15l12-7.5-12-7.5z" stroke-width="1.4" stroke-linejoin="round" fill="currentColor" fill-opacity="0.08"/>
+    <path d="M7.5 4.5l6 7.5-6 7.5" stroke-width="0.9" opacity="0.4"/>
+    <circle cx="12.5" cy="12" r="1.2" fill="currentColor" stroke="none"/>
+  </symbol>
+
+  <!-- Back — Rewind Dual Chevron -->
+  <symbol id="icon-back" viewBox="0 0 24 24">
+    <path d="M11 5l-7 7 7 7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M19 5l-7 7 7 7" stroke-width="1.4" opacity="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+
+  <!-- Forward — Fast Forward Dual Chevron -->
+  <symbol id="icon-forward" viewBox="0 0 24 24">
+    <path d="M13 5l7 7-7 7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M5 5l7 7-7 7" stroke-width="1.4" opacity="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+
+  <!-- Close — Studio Crosshairs -->
+  <symbol id="icon-close" viewBox="0 0 24 24">
+    <path d="M5 5l14 14M19 5L5 19" stroke-width="1.8" stroke-linecap="round"/>
+    <circle cx="12" cy="12" r="9" stroke-width="1" opacity="0.3"/>
+  </symbol>
+
+  <!-- Message — Studio Beacon & Audio Pulse -->
+  <symbol id="icon-message" viewBox="0 0 24 24">
+    <path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5H6.5l-3.5 2.5 1.2-4A8.5 8.5 0 1 1 21 11.5z" stroke-width="1.4" fill="currentColor" fill-opacity="0.06"/>
+    <circle cx="8.5" cy="11.5" r="1.2" fill="currentColor" stroke="none"/>
+    <circle cx="12.5" cy="11.5" r="1.2" fill="currentColor" stroke="none"/>
+    <circle cx="16.5" cy="11.5" r="1.2" fill="currentColor" stroke="none"/>
+  </symbol>
+
+  <!-- Grade — Hollywood 3-Way Vectorscope -->
+  <symbol id="icon-grade" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="9.5" stroke-width="1.3"/>
+    <circle cx="12" cy="12" r="5" stroke-width="0.9" stroke-dasharray="2 2" opacity="0.6"/>
+    <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/>
+    <line x1="12" y1="2.5" x2="12" y2="21.5" stroke-width="1" opacity="0.4"/>
+    <line x1="2.5" y1="12" x2="21.5" y2="12" stroke-width="1" opacity="0.4"/>
+    <circle cx="7.5" cy="8.5" r="2" stroke-width="1.1" fill="currentColor" fill-opacity="0.12"/>
+    <circle cx="16.5" cy="8.5" r="2" stroke-width="1.1" fill="currentColor" fill-opacity="0.12"/>
+    <circle cx="12" cy="16.5" r="2" stroke-width="1.1" fill="currentColor" fill-opacity="0.12"/>
+  </symbol>
+
+  <!-- Hex — 3D VFX Tracking Node Cube -->
+  <symbol id="icon-hex" viewBox="0 0 24 24">
+    <path d="M12 2l9 5.2v10.4L12 22.8l-9-5.2V7.2L12 2z" stroke-width="1.3" stroke-linejoin="round"/>
+    <path d="M12 12.4l9-5.2M12 12.4v10.4M12 12.4l-9-5.2" stroke-width="1.1" opacity="0.7"/>
+    <circle cx="12" cy="12.4" r="2.2" stroke-width="1.1" fill="currentColor" fill-opacity="0.2"/>
+    <circle cx="12" cy="2" r="1.2" fill="currentColor" stroke="none"/>
+    <circle cx="21" cy="7.2" r="1.2" fill="currentColor" stroke="none"/>
+    <circle cx="21" cy="17.6" r="1.2" fill="currentColor" stroke="none"/>
+    <circle cx="12" cy="22.8" r="1.2" fill="currentColor" stroke="none"/>
+    <circle cx="3" cy="17.6" r="1.2" fill="currentColor" stroke="none"/>
+    <circle cx="3" cy="7.2" r="1.2" fill="currentColor" stroke="none"/>
+  </symbol>
+
+  <!-- Sound — Studio Equalizer & Sonic Waves -->
+  <symbol id="icon-sound" viewBox="0 0 24 24">
+    <line x1="4" y1="10" x2="4" y2="14" stroke-width="2" stroke-linecap="round"/>
+    <line x1="8" y1="7" x2="8" y2="17" stroke-width="2" stroke-linecap="round"/>
+    <line x1="12" y1="3" x2="12" y2="21" stroke-width="2.2" stroke-linecap="round"/>
+    <line x1="16" y1="6" x2="16" y2="18" stroke-width="2" stroke-linecap="round"/>
+    <line x1="20" y1="9" x2="20" y2="15" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="12" cy="12" r="9.5" stroke-width="0.8" stroke-dasharray="1 3" opacity="0.4"/>
+  </symbol>
+
+  <!-- Cube — 3D Hyper-Dimensional Gyroscope -->
+  <symbol id="icon-cube" viewBox="0 0 24 24">
+    <path d="M12 1.8l9 5.2v10l-9 5.2-9-5.2V7l9-5.2z" stroke-width="1.3" stroke-linejoin="round"/>
+    <path d="M12 12l9-5M12 12v10.2M12 12L3 7" stroke-width="1.1" opacity="0.6"/>
+    <path d="M12 6.5l4.5 2.6v5.2L12 16.9l-4.5-2.6V9.1L12 6.5z" stroke-width="0.9" fill="currentColor" fill-opacity="0.12"/>
+    <circle cx="12" cy="12" r="1.8" fill="currentColor" stroke="none"/>
+  </symbol>
+
+  <!-- Pause — Futuristic Studio Dual Prism Gates -->
+  <symbol id="icon-pause" viewBox="0 0 24 24">
+    <rect x="5.5" y="4.5" width="4" height="15" rx="1.5" stroke-width="1.3" fill="currentColor" fill-opacity="0.2"/>
+    <line x1="7.5" y1="7" x2="7.5" y2="17" stroke-width="1.2" stroke-linecap="round"/>
+    <rect x="14.5" y="4.5" width="4" height="15" rx="1.5" stroke-width="1.3" fill="currentColor" fill-opacity="0.2"/>
+    <line x1="16.5" y1="7" x2="16.5" y2="17" stroke-width="1.2" stroke-linecap="round"/>
+    <circle cx="7.5" cy="4.5" r="1.2" fill="currentColor" stroke="none"/>
+    <circle cx="16.5" cy="4.5" r="1.2" fill="currentColor" stroke="none"/>
+  </symbol>
+
+  <!-- Volume High — Soft Speaker -->
+  <symbol id="icon-volume-high" viewBox="0 0 24 24">
+    <path d="M4 9.5h3.4l4.7-3.8a1 1 0 0 1 1.6.8v11a1 1 0 0 1-1.6.8l-4.7-3.8H4a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1z" stroke-width="1.55" stroke-linejoin="round" fill="currentColor" fill-opacity="0.12"/>
+    <path d="M16.4 9.1c1 .75 1.6 1.7 1.6 2.9s-.6 2.15-1.6 2.9" stroke-width="1.55" stroke-linecap="round"/>
+    <path d="M19 6.7c1.75 1.4 2.65 3.15 2.65 5.3S20.75 15.9 19 17.3" stroke-width="1.45" stroke-linecap="round" opacity="0.72"/>
+  </symbol>
+
+  <!-- Volume Muted — Soft Speaker Mute -->
+  <symbol id="icon-volume-muted" viewBox="0 0 24 24">
+    <path d="M4 9.5h3.4l4.7-3.8a1 1 0 0 1 1.6.8v11a1 1 0 0 1-1.6.8l-4.7-3.8H4a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1z" stroke-width="1.55" stroke-linejoin="round" fill="currentColor" fill-opacity="0.1"/>
+    <path d="M17 9.5l4 5M21 9.5l-4 5" stroke-width="1.55" stroke-linecap="round"/>
+  </symbol>
+
+  <!-- Fullscreen Expand — Rounded Corners -->
+  <symbol id="icon-fullscreen" viewBox="0 0 24 24">
+    <path d="M9.2 4H5.8A1.8 1.8 0 0 0 4 5.8v3.4M14.8 4h3.4A1.8 1.8 0 0 1 20 5.8v3.4M20 14.8v3.4a1.8 1.8 0 0 1-1.8 1.8h-3.4M9.2 20H5.8A1.8 1.8 0 0 1 4 18.2v-3.4" stroke-width="1.7" stroke-linecap="round"/>
+  </symbol>
+
+  <!-- Fullscreen Exit — Rounded Corners -->
+  <symbol id="icon-fullscreen-exit" viewBox="0 0 24 24">
+    <path d="M9.2 4v3.4A1.8 1.8 0 0 1 7.4 9.2H4M14.8 4v3.4a1.8 1.8 0 0 0 1.8 1.8H20M20 14.8h-3.4a1.8 1.8 0 0 0-1.8 1.8V20M4 14.8h3.4a1.8 1.8 0 0 1 1.8 1.8V20" stroke-width="1.7" stroke-linecap="round"/>
+  </symbol>
+</svg>
+
+<!-- CURSOR + PARTICLE TRAIL -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="cursor-trail" id="cursorTrail"></div>
+
+<!-- SCROLL PROGRESS -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- LIVE ANNOUNCEMENT BANNER (Managed in Portfolio CMS) -->
+<div id="siteAnnouncementBanner" class="site-announcement-banner">
+  <div class="announcement-inner">
+    <span class="announcement-pulse-dot"></span>
+    <span id="announcementBadge" class="announcement-badge badge-gold">AVAILABLE</span>
+    <span id="announcementText" class="announcement-text">Now accepting commercial video editing projects.</span>
+    <a id="announcementAction" href="#contact" class="announcement-btn">Get in Touch →</a>
+    <button class="announcement-dismiss" onclick="dismissSiteBanner()" title="Dismiss announcement" aria-label="Dismiss">✕</button>
+  </div>
+</div>
+
+<!-- NAV — GLASSMORPHISM DEPTH + ACTIVE ILLUMINATION -->
+<nav id="nav" aria-label="Primary navigation">
+  <div class="nav-sheen" id="navSheen"></div>
+  <a href="#" class="nav-logo">SHADOW</a>
+  <ul class="nav-links">
+    <li><a href="#portfolio" data-target="portfolio">Work</a></li>
+    <li><a href="#showcase" data-target="showcase">Featured</a></li>
+    <li><a href="#about" data-target="about">About</a></li>
+    <li><a href="#skills" data-target="skills">Skills</a></li>
+    <li><a href="#contact" class="nav-cta" data-target="contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO — 4-PLANE AURORA ENVIRONMENT + TRUE 3D SPATIAL SPHERE -->
+<section id="hero">
+  <div class="hero-bg">
+    <canvas id="spatialSphereCanvas" class="spatial-sphere-canvas"></canvas>
+    <div class="aurora-plane aurora-cosmos"></div>
+    <div class="ambient-glow" id="ambientGlow" aria-hidden="true"></div>
+    <!-- Kinetic depth layers: their position is driven by smooth pointer and scroll motion. -->
+    <div class="depth-grid" aria-hidden="true"></div>
+    <div class="orbit-field" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="cinema-halo" aria-hidden="true"></div>
+    <div class="hero-orb orb1"></div>
+    <div class="hero-orb orb2"></div>
+    <div class="hero-orb orb3"></div>
+    <div class="aurora-plane aurora-ribbon"></div>
+    <div class="aurora-plane aurora-dust" id="heroAuroraDust"></div>
+  </div>
+  <div class="mouse-glow" id="mouseGlow"></div>
+
+  <div class="hero-content">
+    <h1 class="hero-title" id="heroTitle">
+      Crafting <em>Stories</em><br>Through Motion
+    </h1>
+    <p class="hero-sub">
+      Professional Video Editor &amp; Motion Designer — turning raw footage<br>
+      into cinematic experiences that move people.
+    </p>
+    <div class="hero-actions">
+      <a href="#portfolio" class="btn-primary">
+        <span>View Work</span>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#contact" class="btn-ghost">
+        <svg class="ui-icon" aria-hidden="true"><use href="#icon-message"></use></svg>
+        <span>Get in Touch</span>
+      </a>
+    </div>
+
+    <!-- Atmospheric Fluid Nebula Palette Switcher (Hidden per Maker request - auto changes on blast & refresh) -->
+    <div class="nebula-palette-bar" id="nebulaPaletteBar" style="display: none !important;">
+      <span class="nebula-palette-label">Atmosphere</span>
+      <div class="nebula-palette-pills">
+        <button class="nebula-pill active" data-palette="emerald" title="Reference Video Bio-Emerald">
+          <span class="pill-dot dot-emerald"></span>
+          <span>Bio-Emerald</span>
+        </button>
+        <button class="nebula-pill" data-palette="gold" title="Imperial Studio Gold">
+          <span class="pill-dot dot-gold"></span>
+          <span>Studio Gold</span>
+        </button>
+        <button class="nebula-pill" data-palette="cyan" title="Deep Cosmic Cyan">
+          <span class="pill-dot dot-cyan"></span>
+          <span>Cosmic Cyan</span>
+        </button>
+        <button class="nebula-pill" data-palette="amethyst" title="Galactic Royal Amethyst">
+          <span class="pill-dot dot-amethyst"></span>
+          <span>Amethyst</span>
+        </button>
+        <button class="nebula-pill" data-palette="crimson" title="Solar Flare Crimson">
+          <span class="pill-dot dot-crimson"></span>
+          <span>Solar Flare</span>
+        </button>
+        <button class="nebula-pill" data-palette="frost" title="Arctic Diamond Frost">
+          <span class="pill-dot dot-frost"></span>
+          <span>Arctic Frost</span>
+        </button>
+        <button class="nebula-pill" data-palette="tokyo" title="Tokyo Cyber Neon">
+          <span class="pill-dot dot-tokyo"></span>
+          <span>Tokyo Cyber</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       HERO VIDEO
+       • Plays automatically (muted — browser rule)
+       • Click or tap anywhere → sound ON/OFF
+       • NO play button icon shown
+       ═══════════════════════════════════════════ -->
+  <div class="hero-video-preview">
+    <div class="hero-video-preview-inner" id="heroVideoWrap"
+         style="position:relative;width:100%;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:var(--radius-xl);cursor:pointer;">
+
+      <video
+        id="heroMainVideo"
+        src="/api/media/preview/asset-hero-showreel"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border:none;display:block;">
+      </video>
+
+      <!-- decorative overlays — no pointer events so clicks pass to video -->
+      <div class="video-glass-overlay" style="pointer-events:none;z-index:2"></div>
+      <div class="preview-label"  style="z-index:3">Showreel 2025</div>
+      <div class="preview-badge"  style="z-index:3">◆ 4K HDR</div>
+
+      <!-- Sound toggle indicator (bottom-right) -->
+      <div id="soundBadge" class="sound-badge">
+        <svg class="ui-icon" aria-hidden="true"><use href="#icon-sound"></use></svg>
+        <span>Tap for sound</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- PORTFOLIO — HOLOGRAPHIC 3D CARDS -->
+<section id="portfolio">
+  <div class="portfolio-header">
+    <div>
+      <div class="section-label reveal">Selected Work</div>
+      <h2 class="section-title reveal reveal-delay-1">Projects That<br><em>Define the Craft</em></h2>
+      <p class="section-desc reveal reveal-delay-2">Each project is an intimate collaboration — a story told through light, motion, and sound.</p>
+    </div>
+    <div class="portfolio-filter reveal">
+      <div class="filter-spring-pill" id="filterSpringPill"></div>
+      <button class="filter-btn active">All</button>
+      <button class="filter-btn">Commercial</button>
+      <button class="filter-btn">Film</button>
+      <button class="filter-btn">Motion</button>
+      <button class="filter-btn">VFX</button>
+    </div>
+  </div>
+  <div class="portfolio-grid">
+    <!-- Cards auto-populated from data/videos.json -->
+  </div>
+  <div class="portfolio-pagination" id="portfolioPagination"></div>
+</section>
+
+<!-- SHOWCASE — 3D DEPTH + WAVEFORM -->
+<section id="showcase">
+  <div class="showcase-inner">
+    <div class="showcase-player reveal">
+      <div class="showcase-video-area">
+        <div class="showcase-scene">
+          <div class="showcase-lines"></div>
+          <div class="showcase-text-overlay">FEATURED</div>
+          <div class="showcase-center-glow"></div>
+          <div style="position:absolute;width:2px;height:120px;background:linear-gradient(to bottom,transparent,rgba(201,168,76,0.4),transparent);left:30%;animation:filmScroll 3s linear infinite"></div>
+          <div style="position:absolute;width:2px;height:80px;background:linear-gradient(to bottom,transparent,rgba(201,168,76,0.25),transparent);right:25%;animation:filmScroll 4s linear infinite 1.5s"></div>
+        </div>
+        <div id="showcaseBadge" style="position:absolute;top:20px;left:20px;background:rgba(0,0,0,0.4);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.08);border-radius:99px;padding:6px 14px;font-size:10px;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase">◆ Featured</div>
+      </div>
+      <div class="showcase-controls">
+        <button class="sc-btn" id="showcasePrev" type="button" aria-label="Previous featured project"><svg class="ui-icon" aria-hidden="true"><use href="#icon-back"></use></svg></button>
+        <button class="sc-btn" id="showcasePlay" type="button" aria-label="Play featured project" style="background:rgba(201,168,76,0.1);border-color:rgba(201,168,76,0.3);color:var(--gold)"><svg class="ui-icon" aria-hidden="true"><use href="#icon-play"></use></svg></button>
+        <button class="sc-btn" id="showcaseNext" type="button" aria-label="Next featured project"><svg class="ui-icon" aria-hidden="true"><use href="#icon-forward"></use></svg></button>
+        <!-- Waveform bars -->
+        <div class="showcase-waveform" id="showcaseWaveform"></div>
+        <div class="sc-timeline"><div class="sc-progress" id="showcaseProgress"></div></div>
+        <span class="sc-time" id="showcaseTime">2:34 / 4:12</span>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-label reveal">Featured Project</div>
+      <h2 class="section-title reveal reveal-delay-1" id="showcaseTitle"><em>Urban</em><br>Mirage</h2>
+      <div class="divider reveal reveal-delay-2"></div>
+      <p class="section-desc reveal reveal-delay-2" id="showcaseDescription">
+        An architectural visual symphony — this commercial campaign captured the interplay of light, glass, and geometric symmetry through precision cinematography and master color grading.
+      </p>
+      <div style="margin-top:48px;display:flex;gap:32px" class="reveal reveal-delay-3">
+        <div>
+          <div id="showcaseProdTime" style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--white)">4 <span style="color:var(--gold)">wks</span></div>
+          <div style="font-size:11px;color:var(--muted);letter-spacing:0.08em;margin-top:4px">Production</div>
+        </div>
+        <div style="width:1px;background:var(--border)"></div>
+        <div>
+          <div id="showcaseLocations" style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--white)">2 <span style="color:var(--gold)">cities</span></div>
+          <div style="font-size:11px;color:var(--muted);letter-spacing:0.08em;margin-top:4px">Locations</div>
+        </div>
+        <div style="width:1px;background:var(--border)"></div>
+        <div>
+          <div id="showcaseResolution" style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--white)">4K <span style="color:var(--gold)">HDR</span></div>
+          <div style="font-size:11px;color:var(--muted);letter-spacing:0.08em;margin-top:4px">Resolution</div>
+        </div>
+      </div>
+      <div style="margin-top:48px" class="reveal reveal-delay-4">
+        <button class="btn-primary" id="showcaseWatchBtn" onclick="openModal('Urban Mirage','Commercial · 4K HDR','asset-urban-mirage')" style="cursor:pointer">
+          <span>Watch Full Project</span>
+          <svg class="ui-icon" aria-hidden="true"><use href="#icon-play"></use></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT — 3D STATS + BEAM TIMELINE -->
+<section id="about">
+  <div class="about-grid">
+    <div>
+      <div class="section-label reveal">About</div>
+      <h2 class="section-title reveal reveal-delay-1">The Craft<br>Behind the <em>Lens</em></h2>
+      <div class="divider reveal reveal-delay-2"></div>
+      <p class="section-desc reveal reveal-delay-2">
+        With over two years of experience, I've worked with global brands, independent filmmakers, and creative studios — always chasing the emotional truth in every frame. My process blends technical mastery with artistic intuition.
+      </p>
+      <div class="stats-row reveal reveal-delay-3">
+        <div class="stat-card">
+          <div class="stat-num"><span class="count-up" data-target="2">0</span><span>+</span></div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num"><span class="count-up" data-target="25">0</span><span>+</span></div>
+          <div class="stat-label">Projects Completed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num"><span class="count-up" data-target="3">0</span><span>+</span></div>
+          <div class="stat-label">Clients Worldwide</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num"><span class="count-up" data-target="12">0</span><span>+</span></div>
+          <div class="stat-label">Awards Won</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="timeline reveal" id="timelineContainer">
+        <div class="timeline-energy-track">
+          <div class="timeline-energy-beam" id="timelineBeam">
+            <div class="timeline-beam-head"></div>
+          </div>
+        </div>
+        <div class="timeline-item" data-index="0">
+          <div class="timeline-node"></div>
+          <div class="timeline-year">2026 — Present</div>
+          <div class="timeline-role">Senior Motion Designer</div>
+          <div class="timeline-company">In-House Studio, Dhaka</div>
+        </div>
+        <div class="timeline-item" data-index="1">
+          <div class="timeline-node"></div>
+          <div class="timeline-year">2025 — 2026</div>
+          <div class="timeline-role">Lead Video Editor</div>
+          <div class="timeline-company">In-House, Dhaka</div>
+        </div>
+        <div class="timeline-item" data-index="2">
+          <div class="timeline-node"></div>
+          <div class="timeline-year">2025 — 2026</div>
+          <div class="timeline-role">Motion Graphics Artist</div>
+          <div class="timeline-company">In-House Studios, Dhaka</div>
+        </div>
+        <div class="timeline-item" data-index="3">
+          <div class="timeline-node"></div>
+          <div class="timeline-year">2024 — 2025</div>
+          <div class="timeline-role">Junior Editor & Colorist</div>
+          <div class="timeline-company">In-House, Dhaka</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS — 3D ROTATING ICONS + AURA GLOW -->
+<section id="skills">
+  <div style="text-align:center;max-width:680px;margin:0 auto 0">
+    <div class="section-label reveal" style="justify-content:center">Expertise</div>
+    <h2 class="section-title reveal reveal-delay-1">Tools of<br>the <em>Artisan</em></h2>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card reveal" data-skill="spark">
+      <div class="skill-card-glow"></div>
+      <div class="skill-icon icon-wrap shape-circle has-3d">
+        <div class="scene motion-scene">
+          <svg class="mg-path" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1">
+            <defs>
+              <linearGradient id="mg-grad" x1="3" y1="17" x2="21" y2="17" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="var(--accent)" stop-opacity=".2"/>
+                <stop offset="50%" stop-color="#eafff6"/>
+                <stop offset="100%" stop-color="var(--accent)" stop-opacity=".2"/>
+              </linearGradient>
+            </defs>
+            <path class="mg-guide" d="M3 17 C7 6 17 6 21 17"/>
+            <path class="mg-guide-draw" d="M3 17 C7 6 17 6 21 17" pathLength="100"/>
+            <line class="mg-handle" x1="12" y1="7.2" x2="6.8" y2="3.6"/>
+            <line class="mg-handle" x1="12" y1="7.2" x2="17.2" y2="3.6"/>
+            <circle class="mg-handle-dot" cx="6.8" cy="3.6" r="0.8" fill="currentColor" stroke="none"/>
+            <circle class="mg-handle-dot" cx="17.2" cy="3.6" r="0.8" fill="currentColor" stroke="none"/>
+            <rect class="mg-key k1 mg-diamond" x="1.85" y="15.85" width="2.3" height="2.3" transform="rotate(45 3 17)" fill="currentColor" stroke="none"/>
+            <circle class="mg-key k2" cx="12" cy="7.2" r="1.3" fill="currentColor" stroke="none"/>
+            <rect class="mg-key k3 mg-hold" x="19.6" y="15.6" width="2.8" height="2.8" rx="0.5" fill="currentColor" stroke="none"/>
+          </svg>
+          <div class="mg-mover trail t2"></div>
+          <div class="mg-mover trail t1"></div>
+          <div class="mg-mover main"></div>
+        </div>
+      </div>
+      <div class="skill-name">Motion Graphics</div>
+      <div class="skill-desc">Crafting kinetic visual narratives — from title sequences to complex broadcast animations that breathe life into brands.</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" data-width="95"></div></div>
+    </div>
+    <div class="skill-card reveal reveal-delay-1" data-skill="cut">
+      <div class="skill-card-glow"></div>
+      <div class="skill-icon icon-wrap shape-square has-3d">
+        <div class="scene video-scene">
+          <div class="tl-track"></div>
+          <div class="tl-clip c1"></div>
+          <div class="tl-clip c2"></div>
+          <div class="tl-clip c3"></div>
+          <div class="tl-audio">
+            <span class="tl-wf" style="--h:.4"></span>
+            <span class="tl-wf" style="--h:.9"></span>
+            <span class="tl-wf" style="--h:.55"></span>
+            <span class="tl-wf" style="--h:1"></span>
+            <span class="tl-wf" style="--h:.35"></span>
+            <span class="tl-wf" style="--h:.7"></span>
+            <span class="tl-wf" style="--h:.5"></span>
+            <span class="tl-wf" style="--h:.85"></span>
+          </div>
+          <div class="tl-playhead"><span class="tl-handle"></span></div>
+        </div>
+      </div>
+      <div class="skill-name">Video Editing</div>
+      <div class="skill-desc">Precision cutting with emotional intelligence — shaping raw material into stories that hold an audience's breath.</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" data-width="98"></div></div>
+    </div>
+    <div class="skill-card reveal reveal-delay-2" data-skill="grade">
+      <div class="skill-card-glow"></div>
+      <div class="skill-icon icon-wrap shape-circle-dashed has-3d">
+        <div class="color-icon">
+          <div class="wheel-frame">
+            <div class="tick tick-major" style="--a:0deg"></div>
+            <div class="tick" style="--a:45deg"></div>
+            <div class="tick tick-major" style="--a:90deg"></div>
+            <div class="tick" style="--a:135deg"></div>
+            <div class="tick tick-major" style="--a:180deg"></div>
+            <div class="tick" style="--a:225deg"></div>
+            <div class="tick tick-major" style="--a:270deg"></div>
+            <div class="tick" style="--a:315deg"></div>
+          </div>
+          <div class="wheel-scene">
+            <div class="wheel-bezel"></div>
+            <div class="color-disc"><div class="disc-highlight"></div></div>
+            <div class="trail-dot d3" style="--a:-34deg"></div>
+            <div class="trail-dot d2" style="--a:-22deg"></div>
+            <div class="trail-dot d1" style="--a:-11deg"></div>
+            <div class="knob"></div>
+            <div class="knob2"></div>
+          </div>
+        </div>
+      </div>
+      <div class="skill-name">Color Grading</div>
+      <div class="skill-desc">Painting with light — sculpting mood and atmosphere through deliberate tonal choices and cinematic LUT development.</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" data-width="90"></div></div>
+    </div>
+    <div class="skill-card reveal reveal-delay-1" data-skill="hex">
+      <div class="skill-card-glow"></div>
+      <div class="skill-icon icon-wrap shape-circle-dashed has-3d">
+        <div class="scene vfx-scene">
+          <div class="shockwave"></div>
+          <div class="vfx-core"></div>
+          <div class="shard" style="--ang:0deg;   --z:6px;"></div>
+          <div class="shard" style="--ang:45deg;  --z:-3px;"></div>
+          <div class="shard" style="--ang:90deg;  --z:7px;"></div>
+          <div class="shard" style="--ang:135deg; --z:-5px;"></div>
+          <div class="shard" style="--ang:180deg; --z:8px;"></div>
+          <div class="shard" style="--ang:225deg; --z:-7px;"></div>
+          <div class="shard" style="--ang:270deg; --z:5px;"></div>
+          <div class="shard" style="--ang:315deg; --z:-4px;"></div>
+        </div>
+      </div>
+      <div class="skill-name">VFX</div>
+      <div class="skill-desc">Seamless visual effects that enhance rather than distract — compositing, tracking, and simulation at cinematic quality.</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" data-width="82"></div></div>
+    </div>
+    <div class="skill-card reveal reveal-delay-2" data-skill="sound">
+      <div class="skill-card-glow"></div>
+      <div class="skill-icon icon-wrap shape-circle has-3d">
+        <div class="scene sound-scene">
+          <svg class="ic-sound" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line class="bar-line b1" x1="4" y1="9" x2="4" y2="15"/>
+            <line class="bar-line b2" x1="8.5" y1="5.5" x2="8.5" y2="18.5"/>
+            <line class="bar-line b3" x1="12" y1="2.5" x2="12" y2="21.5"/>
+            <line class="bar-line b4" x1="15.5" y1="6.5" x2="15.5" y2="17.5"/>
+            <line class="bar-line b5" x1="19.5" y1="9.5" x2="19.5" y2="14.5"/>
+          </svg>
+        </div>
+      </div>
+      <div class="skill-name">Sound Design</div>
+      <div class="skill-desc">Sound that makes images feel real — from foley to music editing, building the invisible architecture of emotion.</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" data-width="78"></div></div>
+    </div>
+    <div class="skill-card reveal reveal-delay-3" data-skill="cube">
+      <div class="skill-card-glow"></div>
+      <div class="skill-icon icon-wrap shape-diamond">
+        <div class="cube-scene">
+          <div class="cube-3d">
+            <div class="face front"></div>
+            <div class="face back"></div>
+            <div class="face right"></div>
+            <div class="face left"></div>
+            <div class="face top"></div>
+            <div class="face bottom"></div>
+            <div class="cube-inner">
+              <div class="face2 front"></div>
+              <div class="face2 back"></div>
+              <div class="face2 right"></div>
+              <div class="face2 left"></div>
+              <div class="face2 top"></div>
+              <div class="face2 bottom"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="skill-name">3D Animation</div>
+      <div class="skill-desc">Bringing the imagined into being — product visualization, abstract environments, and architectural animation.</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" data-width="72"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT — 3D DEPTH + GLOW RIPPLE -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-info">
+      <div class="section-label reveal">Contact</div>
+      <h2 class="section-title reveal reveal-delay-1">Let's Create<br><em>Together</em></h2>
+      <div class="divider reveal reveal-delay-2"></div>
+      <p class="section-desc reveal reveal-delay-2">
+        Available for select projects, collaborations, and long-term partnerships. Every conversation starts with listening.
+      </p>
+      <div style="margin-top:48px" class="reveal reveal-delay-3">
+        <div style="font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--dimmer);margin-bottom:12px">Direct Email</div>
+        <a href="mailto:Shadows0085@gmail.com" style="font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--white);text-decoration:none;font-weight:300;transition:color 0.3s,text-shadow 0.3s" onmouseover="this.style.color='var(--gold)';this.style.textShadow='0 0 20px rgba(201,168,76,0.2)'" onmouseout="this.style.color='var(--white)';this.style.textShadow='none'">Shadows0085@gmail.com</a>
+      </div>
+      <div class="social-links reveal reveal-delay-4">
+        <a href="https://wa.me/qr/XZGHEVZ3NCSHC1" class="social-link social-whatsapp" title="WhatsApp" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+          <span class="social-icon-box">
+            <svg class="social-icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path class="wa-bubble-path" d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+              <rect class="wa-status-dot" x="13.2" y="11.2" width="2.8" height="2.8" rx="0.6" fill="#25D366" stroke="none"/>
+            </svg>
+          </span>
+        </a>
+        <a href="https://www.facebook.com/SHADOWWEB0086" class="social-link social-facebook" title="Facebook" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+          <span class="social-icon-box">
+            <svg class="social-icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path class="fb-f-path" d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+            </svg>
+          </span>
+        </a>
+        <a href="#" class="social-link social-x" title="X" aria-label="X">
+          <span class="social-icon-box">
+            <svg class="social-icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path class="x-glyph-path" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </span>
+        </a>
+        <a href="#" class="social-link social-instagram" title="Instagram" aria-label="Instagram">
+          <span class="social-icon-box">
+            <svg class="social-icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect class="ig-body" x="2" y="2" width="20" height="20" rx="5"/>
+              <circle class="ig-lens" cx="12" cy="12" r="4"/>
+              <circle class="ig-flash" cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+            </svg>
+          </span>
+        </a>
+        <a href="#" class="social-link social-telegram" title="Telegram" aria-label="Telegram">
+          <span class="social-icon-box">
+            <svg class="social-icon-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path class="tg-plane-path" d="M21 3L2 10.5l7 1.5m12-9L9 12m0 0l1 7 3-3m-4-4l8-8"/>
+            </svg>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <div class="reveal reveal-delay-2">
+      <div class="contact-form">
+        <div style="margin-bottom:36px">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;margin-bottom:8px">Start a Conversation</div>
+          <div style="font-size:13px;color:var(--dimmer)">I'll respond within 24 hours</div>
+        </div>
+        <div class="form-group">
+          <input type="text" id="name" placeholder="Your Name">
+          <label for="name">Your Name</label>
+        </div>
+        <div class="form-group">
+          <input type="email" id="email" placeholder="Email Address">
+          <label for="email">Email Address</label>
+        </div>
+        <div class="form-group">
+          <input type="text" id="project" placeholder="Project Type">
+          <label for="project">Project Type</label>
+        </div>
+        <div class="form-group">
+          <textarea id="message" placeholder="Tell me about your vision..."></textarea>
+          <label for="message">Tell me about your vision...</label>
+        </div>
+        <button class="btn-primary" style="width:100%;justify-content:center;cursor:none">
+          Send Message
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER — AMBIENT PARTICLES & DEPTH-REACTIVE TYPOGRAPHY -->
+<footer id="mainFooter">
+  <div class="footer-stardust" id="footerStardust"></div>
+  <a href="#" class="footer-logo">SHADOW</a>
+  <div class="footer-copy">© 2025 Shadow Studio. All rights reserved. Original media encrypted at rest.</div>
+  <div class="footer-meta-wrap">
+    <div class="footer-mark"><svg class="ui-icon" aria-hidden="true"><use href="#icon-spark"></use></svg><span>Available for select collaborations</span></div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECURE MODAL — Protected Media Delivery & Dynamic Watermark
+     ═══════════════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-box secure-protected">
+    <div class="modal-video-area" style="position:relative;background:#05070c;">
+      <!-- Dynamic Hardware-Accelerated Watermark Layer -->
+      <canvas id="watermarkCanvas" class="secure-watermark-canvas"></canvas>
+
+      <!-- Transparent Interaction Shield (blocks direct right-click download) -->
+      <div class="secure-interaction-shield" id="secureInteractionShield"></div>
+
+      <!-- Real video element (streams authenticated AES-256 decrypted buffer chunks) -->
+      <video id="modalVideo"
+             class="secure-media-element"
+             playsinline
+             controlslist="nodownload"
+             style="width:100%;height:100%;object-fit:contain;display:block;background:#000;">
+      </video>
+
+      <!-- Security Alert Veil (Focus loss / Inspector detection trigger) -->
+      <div class="security-alert-veil" id="securityVeil">
+        <div class="security-shield-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="security-veil-title">Protected Content Secured</div>
+        <div class="security-veil-sub">Playback paused due to window focus loss or inspection heuristic.<br><span style="font-size:11px;color:#c9a84c">Original assets are encrypted and delivered via expiring signed streams.</span></div>
+        <button class="security-veil-btn" onclick="if(window.securityShield) window.securityShield.clearSecurityBlur()">Resume Viewing</button>
+      </div>
+
+      <!-- Minimalist Custom Secure Video Controls -->
+      <div class="secure-player-controls" id="secureControls">
+        <button class="secure-ctrl-btn" id="securePlayBtn" aria-label="Play or Pause video" title="Play / Pause">
+          <svg class="ui-icon" aria-hidden="true"><use href="#icon-play"></use></svg>
+        </button>
+
+        <div class="secure-progress-track" id="secureProgressTrack" role="slider" aria-label="Video seek track" tabindex="0">
+          <div class="secure-progress-fill" id="secureProgressFill"></div>
+        </div>
+
+        <span class="secure-time-label" id="secureTimeLabel">0:00 / 0:00</span>
+
+        <!-- Unique Audio Control Suite -->
+        <div class="secure-volume-cluster" id="secureVolumeCluster">
+          <button class="secure-ctrl-btn" id="secureMuteBtn" aria-label="Toggle Sound" title="Sound Control">
+            <svg class="ui-icon" id="secureVolumeIcon" aria-hidden="true"><use href="#icon-volume-high"></use></svg>
+          </button>
+          <div class="secure-volume-bar-wrap" id="secureVolumeBarWrap" title="Volume Slider">
+            <div class="secure-volume-fill" id="secureVolumeFill"></div>
+          </div>
+        </div>
+
+        <!-- Fullscreen Option -->
+        <button class="secure-ctrl-btn" id="secureFullscreenBtn" aria-label="Toggle Fullscreen" title="Full Screen">
+          <svg class="ui-icon" id="secureFullscreenIcon" aria-hidden="true"><use href="#icon-fullscreen"></use></svg>
+        </button>
+
+        <div class="token-ttl-badge" id="tokenTtlBadge" title="Signed stream active">
+          <span class="token-ttl-dot"></span>
+          <span>TTL: <span id="tokenTtlSeconds">90s</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Footer with Cryptographic Metadata -->
+    <div class="modal-footer">
+      <div>
+        <div id="modalTitle" class="modal-title">Ephemeral Moments</div>
+        <div id="modalMeta" style="font-size:12px;color:var(--muted);margin-top:4px;letter-spacing:0.08em">Commercial · 2024</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;">
+        <span style="font-size:10px;color:var(--gold);background:rgba(201,168,76,0.1);padding:4px 8px;border-radius:4px;letter-spacing:0.1em">AES-256 STREAM</span>
+        <button class="modal-close" onclick="closeModal()" aria-label="Close"><svg class="ui-icon" aria-hidden="true"><use href="#icon-close"></use></svg></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/photo-shape-data.js?v=11.0"></script>
+<script src="js/fluid-nebula.js?v=11.4"></script>
+<script src="js/watermark-engine.js?v=1.0"></script>
+<script src="js/security-shield.js?v=1.3"></script>
+<script src="js/secure-viewer.js?v=1.3"></script>
+<script src="js/main.js?v=12.0"></script>
+<script>
+
+/* ═══════════════════════════════════════════════════════════
+   HERO VIDEO — click / tap = toggle sound. No play icon.
+   ═══════════════════════════════════════════════════════════ */
+(function () {
+  var wrap  = document.getElementById('heroVideoWrap');
+  var video = document.getElementById('heroMainVideo');
+  var badge = document.getElementById('soundBadge');
+  if (!wrap || !video || !badge) return;
+
+  function updateBadge() {
+    badge.classList.toggle('is-on', !video.muted);
+    var label = badge.querySelector('span');
+    if (label) label.textContent = video.muted ? 'Tap for sound' : 'Sound on';
+  }
+
+  video.play().catch(function(){});
+
+  function toggleSound(e) {
+    if (e) {
+      e.stopPropagation();
+    }
+    video.muted = !video.muted;
+    if (!video.muted && video.paused) video.play().catch(function(){});
+    updateBadge();
+  }
+
+  badge.addEventListener('click', toggleSound);
+  wrap.addEventListener('click', toggleSound);
+
+  badge.addEventListener('touchend', function (e) {
+    e.preventDefault();
+    toggleSound(e);
+  }, { passive: false });
+
+  wrap.addEventListener('touchend', function (e) {
+    e.preventDefault();
+    toggleSound(e);
+  }, { passive: false });
+})();
+
+/* ═══════════════════════════════════════════════════════════
+   INITIALIZE SECURITY SHIELD & SECURE VIEWER
+   ═══════════════════════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', function () {
+  window.securityShield = new window.SecurityShield();
+  window.secureViewer = new window.SecureViewer('modal');
+
+  // Wire custom shield click to toggle video playback
+  var shield = document.getElementById('secureInteractionShield');
+  var video = document.getElementById('modalVideo');
+  if (shield && video) {
+    shield.addEventListener('click', function () {
+      if (video.paused) video.play();
+      else video.pause();
+    });
+  }
+});
+
+/* ═══════════════════════════════════════════════════════════
+   MODAL — invoke secure viewer with signed streaming tickets
+   ═══════════════════════════════════════════════════════════ */
+window.openModal = function (title, meta, assetIdOrSrc) {
+  var assetId = assetIdOrSrc || 'asset-urban-mirage';
+
+  if (window.secureViewer) {
+    window.secureViewer.openSecureAsset(assetId, title, meta);
+  }
+};
+
+window.closeModal = function () {
+  if (window.secureViewer) {
+    window.secureViewer.close();
+  }
+};
+
+document.getElementById('modal').addEventListener('click', function (e) {
+  if (e.target === this) window.closeModal();
+});
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') window.closeModal();
+});
+
+/* ═══════════════════════════════════════════════════════════
+   LIVE ANNOUNCEMENT BANNER CONTROLLER (Synced with CMS)
+   ═══════════════════════════════════════════════════════════ */
+(function initAnnouncementBanner() {
+  var banner = document.getElementById('siteAnnouncementBanner');
+  var badge = document.getElementById('announcementBadge');
+  var text = document.getElementById('announcementText');
+  var action = document.getElementById('announcementAction');
+  if (!banner || !badge || !text || !action) return;
+
+  fetch('/data/videos.json?t=' + Date.now())
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+      if (!data || !data.notifications || !data.notifications.globalEnabled) {
+        banner.classList.remove('is-visible');
+        document.body.classList.remove('has-banner');
+        return;
+      }
+
+      var notifs = data.notifications;
+      var activeItem = null;
+
+      if (notifs.activeId) {
+        activeItem = notifs.items.find(function(it) { return it.id === notifs.activeId; });
+      }
+      if (!activeItem) {
+        activeItem = notifs.items.find(function(it) { return it.enabled; });
+      }
+
+      if (!activeItem || activeItem.enabled === false) {
+        banner.classList.remove('is-visible');
+        document.body.classList.remove('has-banner');
+        return;
+      }
+
+      // Check session dismissal
+      var dismissed = sessionStorage.getItem('shd_dismissed_' + activeItem.id);
+      if (dismissed === 'true') {
+        banner.classList.remove('is-visible');
+        document.body.classList.remove('has-banner');
+        return;
+      }
+
+      // Populate elements
+      badge.textContent = activeItem.badge || 'NOTICE';
+      badge.className = 'announcement-badge badge-' + (activeItem.type || 'gold');
+      text.textContent = activeItem.message || activeItem.title;
+      if (activeItem.actionText && activeItem.actionLink) {
+        action.textContent = activeItem.actionText + ' →';
+        action.href = activeItem.actionLink;
+        action.style.display = 'inline-flex';
+      } else {
+        action.style.display = 'none';
+      }
+
+      banner.classList.add('is-visible');
+      document.body.classList.add('has-banner');
+
+      window.dismissSiteBanner = function() {
+        banner.classList.remove('is-visible');
+        document.body.classList.remove('has-banner');
+        sessionStorage.setItem('shd_dismissed_' + activeItem.id, 'true');
+      };
+    })
+    .catch(function() {
+      // Offline fallback
+    });
+})();
+</script>
+</body>
+</html>

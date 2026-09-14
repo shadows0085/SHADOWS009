@@ -1,0 +1,999 @@
+/* SHADOW — Advanced Animation Keyframes
+   ═══════════════════════════════════════
+   40+ keyframes for 3D animations,
+   particle systems, holographic effects,
+   elastic physics, and smooth transitions.
+   ═══════════════════════════════════════ */
+
+/* ─── ORIGINAL (preserved + enhanced) ─── */
+
+@keyframes grain {
+  0%,100% { transform: translate(0,0); }
+  10% { transform: translate(-2%,-3%); }
+  20% { transform: translate(3%,1%); }
+  30% { transform: translate(-1%,4%); }
+  40% { transform: translate(2%,-2%); }
+  50% { transform: translate(-3%,2%); }
+  60% { transform: translate(1%,-4%); }
+  70% { transform: translate(-2%,3%); }
+  80% { transform: translate(4%,-1%); }
+  90% { transform: translate(-1%,2%); }
+}
+
+@keyframes loaderPulse {
+  0%,100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes orbFloat {
+  0%,100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -20px) scale(1.05); }
+  66% { transform: translate(-20px, 30px) scale(0.95); }
+}
+
+@keyframes fadeUpScale {
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes filmScroll {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(100vh); }
+}
+
+@keyframes previewBar {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes thumbGlow {
+  0%,100% { transform: scale(1) translate(0,0); opacity: 0.6; }
+  50% { transform: scale(1.3) translate(10px,-10px); opacity: 0.9; }
+}
+
+@keyframes showcaseGlow {
+  0%,100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 1; }
+}
+
+@keyframes scProgress {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+@keyframes badgeFloat {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+@keyframes pulseRing {
+  0% { transform: scale(0.72); opacity: 0.5; }
+  100% { transform: scale(1.25); opacity: 0; }
+}
+
+@keyframes lineDrift {
+  from { transform: translateX(0); }
+  to { transform: translateX(51px); }
+}
+
+@keyframes textBreathe {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.72; transform: scale(1.025); }
+}
+
+@keyframes nodePulse {
+  0%,100% { box-shadow: 0 0 12px rgba(201,168,76,0.4); }
+  50% { box-shadow: 0 0 24px rgba(201,168,76,0.65); }
+}
+
+@keyframes barGlint {
+  from { transform: translateX(-120%); }
+  to { transform: translateX(120%); }
+}
+
+@keyframes sparkleSpin {
+  from { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.12); }
+  to { transform: rotate(360deg) scale(1); }
+}
+
+
+/* ═══════════════════════════════════════
+   NEW ADVANCED 3D & MOTION KEYFRAMES
+   ═══════════════════════════════════════ */
+
+/* ─── 3D CUBE LOADER ─── */
+@keyframes cubeRotate {
+  0%   { transform: rotateX(-25deg) rotateY(0deg); }
+  25%  { transform: rotateX(-25deg) rotateY(90deg); }
+  50%  { transform: rotateX(-25deg) rotateY(180deg); }
+  75%  { transform: rotateX(-25deg) rotateY(270deg); }
+  100% { transform: rotateX(-25deg) rotateY(360deg); }
+}
+
+@keyframes cubeGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(201,168,76,0.3), inset 0 0 20px rgba(201,168,76,0.05); }
+  50% { box-shadow: 0 0 40px rgba(201,168,76,0.6), inset 0 0 40px rgba(201,168,76,0.1); }
+}
+
+@keyframes loaderBurst {
+  0% { transform: scale(1); opacity: 1; filter: blur(0); }
+  60% { transform: scale(1.8); opacity: 0.4; filter: blur(4px); }
+  100% { transform: scale(2.5); opacity: 0; filter: blur(12px); }
+}
+
+@keyframes loaderParticle {
+  0% { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(var(--px, 40px), var(--py, -60px)) scale(0); opacity: 0; }
+}
+
+/* ─── CURSOR & TRAIL ─── */
+@keyframes cursorTrailFade {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+  100% { transform: translate(-50%, -50%) scale(0.1); opacity: 0; }
+}
+
+@keyframes cursorMorph {
+  0%   { border-radius: 50%; }
+  25%  { border-radius: 40% 60% 60% 40% / 60% 40% 60% 40%; }
+  50%  { border-radius: 50% 50% 40% 60% / 40% 60% 50% 50%; }
+  75%  { border-radius: 60% 40% 50% 50% / 50% 50% 60% 40%; }
+  100% { border-radius: 50%; }
+}
+
+/* ─── HERO TITLE SPLIT WORD 3D ENGINE (LOW ATTACK · SOFT HIGH CREST · CINEMATIC BOKEH) ─── */
+@keyframes wordReveal3D {
+  0% {
+    opacity: 0;
+    transform: perspective(1200px) translateY(24px) translateZ(-40px) rotateX(12deg);
+    filter: blur(10px);
+    text-shadow: 0 0 0 rgba(0,0,0,0);
+  }
+  40% {
+    opacity: 0.7;
+    filter: blur(4px);
+  }
+  75% {
+    opacity: 0.98;
+    transform: perspective(1200px) translateY(-3px) translateZ(10px) rotateX(-1.5deg);
+    filter: blur(0px);
+    text-shadow: 0 8px 24px rgba(201,168,76,0.2);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(1200px) translateY(0) translateZ(0px) rotateX(0deg);
+    filter: blur(0px);
+    text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+  }
+}
+
+@keyframes wordWave3D {
+  0%, 100% {
+    transform: perspective(1200px) translateY(0px) translateZ(0px) rotateX(0deg);
+    filter: none;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5), 0 0 2px rgba(255,255,255,0.15);
+    opacity: 0.96;
+  }
+  45% {
+    /* Soft high crest: rises smoothly into foreground with silky presence */
+    transform: perspective(1200px) translateY(-6px) translateZ(18px) rotateX(-2deg);
+    filter: none;
+    text-shadow: 0 6px 20px rgba(0,0,0,0.35), 0 0 20px rgba(255,255,255,0.25), 0 6px 24px rgba(201,168,76,0.2);
+    opacity: 1;
+  }
+  80% {
+    /* Low attack trough: crisp rendering with zero blur */
+    transform: perspective(1200px) translateY(2.5px) translateZ(-8px) rotateX(0.8deg);
+    filter: none;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    opacity: 0.9;
+  }
+}
+
+@keyframes wordWave3DGold {
+  0%, 100% {
+    transform: perspective(1200px) translateY(0px) translateZ(5px) rotateX(0deg);
+    filter: none;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5), 0 0 24px rgba(201,168,76,0.45);
+    opacity: 0.98;
+  }
+  45% {
+    /* Soft high crest for gold italic word: majestic lift & warm golden bloom */
+    transform: perspective(1200px) translateY(-9px) translateZ(26px) rotateX(-2.5deg) scale(1.02);
+    filter: none;
+    text-shadow: 0 8px 24px rgba(0,0,0,0.3), 0 0 35px rgba(232,201,122,0.85), 0 0 60px rgba(201,168,76,0.45);
+    opacity: 1;
+  }
+  80% {
+    /* Low attack dip with zero blur */
+    transform: perspective(1200px) translateY(3px) translateZ(-6px) rotateX(1deg);
+    filter: none;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.6), 0 0 14px rgba(201,168,76,0.25);
+    opacity: 0.92;
+  }
+}
+
+/* ─── AURORA / ORB EFFECTS ─── */
+@keyframes auroraShift {
+  0% {
+    background-position: 0% 50%;
+    filter: blur(60px) hue-rotate(0deg);
+  }
+  33% {
+    background-position: 50% 100%;
+    filter: blur(80px) hue-rotate(15deg);
+  }
+  66% {
+    background-position: 100% 0%;
+    filter: blur(60px) hue-rotate(-10deg);
+  }
+  100% {
+    background-position: 0% 50%;
+    filter: blur(60px) hue-rotate(0deg);
+  }
+}
+
+@keyframes orbMorph {
+  0%   { border-radius: 40% 60% 55% 45% / 60% 40% 55% 45%; transform: translate(0,0) rotate(0deg) scale(1); }
+  25%  { border-radius: 55% 45% 40% 60% / 45% 55% 60% 40%; transform: translate(25px,-15px) rotate(90deg) scale(1.04); }
+  50%  { border-radius: 45% 55% 60% 40% / 55% 45% 40% 60%; transform: translate(-15px,25px) rotate(180deg) scale(0.96); }
+  75%  { border-radius: 60% 40% 45% 55% / 40% 60% 45% 55%; transform: translate(10px,10px) rotate(270deg) scale(1.02); }
+  100% { border-radius: 40% 60% 55% 45% / 60% 40% 55% 45%; transform: translate(0,0) rotate(360deg) scale(1); }
+}
+
+/* ─── HOLOGRAPHIC SHIMMER ─── */
+@keyframes holographicShimmer {
+  0% {
+    background-position: -200% 0;
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    background-position: 200% 0;
+    opacity: 0;
+  }
+}
+
+@keyframes shimmerSweep {
+  0%   { transform: translateX(-100%) rotate(25deg); }
+  100% { transform: translateX(200%) rotate(25deg); }
+}
+
+/* ─── ELASTIC / SPRING ─── */
+@keyframes elasticBounce {
+  0%   { transform: scale(0.3); opacity: 0; }
+  50%  { transform: scale(1.08); opacity: 1; }
+  65%  { transform: scale(0.96); }
+  80%  { transform: scale(1.03); }
+  90%  { transform: scale(0.99); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes elasticSlideUp {
+  0%   { transform: translateY(60px) scale(0.9); opacity: 0; }
+  50%  { transform: translateY(-8px) scale(1.02); opacity: 1; }
+  70%  { transform: translateY(3px) scale(0.99); }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* ─── CARD 3D EFFECTS ─── */
+@keyframes glowPulse3D {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(201,168,76,0.1), 0 0 30px rgba(201,168,76,0.05);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(201,168,76,0.2), 0 0 50px rgba(201,168,76,0.1);
+  }
+}
+
+@keyframes cardFloat {
+  0%, 100% { transform: translateY(0) rotateX(0deg); }
+  50% { transform: translateY(-6px) rotateX(1deg); }
+}
+
+@keyframes borderGlow {
+  0% { opacity: 0.3; background-position: 0% 50%; }
+  50% { opacity: 0.8; background-position: 100% 50%; }
+  100% { opacity: 0.3; background-position: 200% 50%; }
+}
+
+/* ─── ICON ANIMATIONS ─── */
+@keyframes iconFloat3D {
+  0%, 100% {
+    transform: translateZ(0) rotateY(0deg) rotateX(0deg);
+  }
+  25% {
+    transform: translateZ(12px) rotateY(5deg) rotateX(-3deg);
+  }
+  50% {
+    transform: translateZ(20px) rotateY(0deg) rotateX(0deg);
+  }
+  75% {
+    transform: translateZ(12px) rotateY(-5deg) rotateX(3deg);
+  }
+}
+
+@keyframes iconGlowAura {
+  0%, 100% {
+    box-shadow: 0 0 12px rgba(201,168,76,0.2), 0 0 24px rgba(201,168,76,0.08);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(201,168,76,0.4), 0 0 40px rgba(201,168,76,0.15), 0 0 60px rgba(201,168,76,0.06);
+  }
+}
+
+@keyframes strokeDraw {
+  from { stroke-dashoffset: 100; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes iconSpin3D {
+  0% { transform: perspective(200px) rotateY(0deg); }
+  100% { transform: perspective(200px) rotateY(360deg); }
+}
+
+/* ─── WAVEFORM ─── */
+@keyframes waveform {
+  0%, 100% { height: 4px; }
+  50% { height: var(--wave-h, 16px); }
+}
+
+@keyframes waveformGlow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+/* ─── COUNTER / STATS ─── */
+@keyframes counterFlip {
+  0% { transform: perspective(300px) rotateX(90deg); opacity: 0; }
+  60% { transform: perspective(300px) rotateX(-5deg); opacity: 1; }
+  100% { transform: perspective(300px) rotateX(0deg); opacity: 1; }
+}
+
+@keyframes statGlowLine {
+  0% { transform: scaleX(0); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: scaleX(1); opacity: 0.6; }
+}
+
+/* ─── TIMELINE ─── */
+@keyframes beamConnect {
+  0% { height: 0; opacity: 0; }
+  100% { height: 100%; opacity: 0.3; }
+}
+
+@keyframes timelineNodeExpand {
+  0% { transform: scale(0) rotate(-180deg); opacity: 0; }
+  60% { transform: scale(1.3) rotate(10deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+/* ─── SOCIAL / SPHERE ─── */
+@keyframes spherePop {
+  0% { transform: translateY(0) scale(1); }
+  40% { transform: translateY(-12px) scale(1.15); }
+  60% { transform: translateY(-8px) scale(1.08); }
+  100% { transform: translateY(-6px) scale(1.1); }
+}
+
+@keyframes orbitSpin {
+  from { transform: rotate(0deg) translateX(24px) rotate(0deg); }
+  to { transform: rotate(360deg) translateX(24px) rotate(-360deg); }
+}
+
+@keyframes socialRipple {
+  0% { transform: scale(0.5); opacity: 0.6; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+/* ─── CONTACT / FORM ─── */
+@keyframes inputFocusGlow {
+  0% { box-shadow: 0 0 0 0 rgba(201,168,76,0); }
+  50% { box-shadow: 0 0 0 8px rgba(201,168,76,0.06); }
+  100% { box-shadow: 0 0 0 4px rgba(201,168,76,0.045); }
+}
+
+@keyframes formFloat {
+  0%, 100% { transform: translateY(0) rotateX(0deg); }
+  50% { transform: translateY(-4px) rotateX(0.5deg); }
+}
+
+/* ─── PARTICLES ─── */
+@keyframes floatParticle {
+  0% {
+    transform: translate(0, 0) scale(0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+    transform: translate(var(--fx, 10px), var(--fy, -10px)) scale(1);
+  }
+  100% {
+    transform: translate(var(--tx, 40px), var(--ty, -80px)) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes particleOrbit {
+  0% { transform: rotate(0deg) translateX(var(--orbit-r, 30px)); opacity: 0.8; }
+  50% { opacity: 0.4; }
+  100% { transform: rotate(360deg) translateX(var(--orbit-r, 30px)); opacity: 0.8; }
+}
+
+/* ─── SCROLL / PARALLAX ─── */
+@keyframes depthShift {
+  0% { transform: translateZ(0) scale(1); }
+  50% { transform: translateZ(20px) scale(1.01); }
+  100% { transform: translateZ(0) scale(1); }
+}
+
+@keyframes smoothReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* ─── FILTER PILL ─── */
+@keyframes pillSlide {
+  0% { transform: scaleX(0.6); opacity: 0; }
+  100% { transform: scaleX(1); opacity: 1; }
+}
+
+@keyframes filterPop {
+  0% { transform: translateY(0) scale(1); }
+  30% { transform: translateY(-6px) scale(1.06); }
+  60% { transform: translateY(-2px) scale(1.02); }
+  100% { transform: translateY(-2px) scale(1); }
+}
+
+/* ─── SHOWCASE ENHANCED ─── */
+@keyframes showcaseDepth {
+  0%, 100% { transform: perspective(1000px) rotateY(0deg) rotateX(0deg); }
+  25% { transform: perspective(1000px) rotateY(1.5deg) rotateX(-0.5deg); }
+  75% { transform: perspective(1000px) rotateY(-1.5deg) rotateX(0.5deg); }
+}
+
+@keyframes scanline {
+  0% { top: -10%; }
+  100% { top: 110%; }
+}
+
+/* ─── FOOTER ─── */
+@keyframes footerFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+@keyframes sparkleFloat {
+  0% { transform: rotate(0deg) scale(1); opacity: 0.6; filter: drop-shadow(0 0 4px rgba(201,168,76,0.4)); }
+  25% { transform: rotate(90deg) scale(1.2); opacity: 1; filter: drop-shadow(0 0 8px rgba(201,168,76,0.6)); }
+  50% { transform: rotate(180deg) scale(1); opacity: 0.8; filter: drop-shadow(0 0 4px rgba(201,168,76,0.4)); }
+  75% { transform: rotate(270deg) scale(1.15); opacity: 1; filter: drop-shadow(0 0 8px rgba(201,168,76,0.6)); }
+  100% { transform: rotate(360deg) scale(1); opacity: 0.6; filter: drop-shadow(0 0 4px rgba(201,168,76,0.4)); }
+}
+
+/* ─── NAV ENHANCED ─── */
+@keyframes navSlideDown {
+  0% { transform: translateY(-100%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes navLinkStagger {
+  0% { opacity: 0; transform: translateY(-10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes underlineDraw {
+  0% { width: 0; left: 50%; }
+  100% { width: 100%; left: 0; }
+}
+
+/* ─── MAGNETIC BUTTON ─── */
+@keyframes btnShine {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+@keyframes btnPressDepth {
+  0% { transform: perspective(400px) translateZ(0); }
+  50% { transform: perspective(400px) translateZ(-4px); }
+  100% { transform: perspective(400px) translateZ(0); }
+}
+
+/* ─── VIDEO PREVIEW CINEMATIC ─── */
+@keyframes cinematicFloat {
+  0%, 100% { transform: translateY(0) perspective(1200px) rotateX(1deg); }
+  50% { transform: translateY(-8px) perspective(1200px) rotateX(-0.5deg); }
+}
+
+@keyframes shadowFloat {
+  0%, 100% {
+    transform: scaleX(0.9) translateY(0);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scaleX(0.85) translateY(6px);
+    opacity: 0.15;
+  }
+}
+
+/* ─── SKILL BAR PARTICLES ─── */
+@keyframes barParticle {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-20px) scale(0); opacity: 0; }
+}
+
+@keyframes barShimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ADVANCED 15-SYSTEM SPATIAL & PHYSICS KEYFRAMES
+   ═══════════════════════════════════════════════════════════ */
+
+/* 1. 3D SPATIAL LOADER */
+@keyframes spatialLightBurst {
+  0% { transform: scale(0.1); opacity: 0; filter: blur(0); }
+  40% { transform: scale(1.4); opacity: 1; filter: blur(4px); }
+  100% { transform: scale(3.5); opacity: 0; filter: blur(16px); }
+}
+
+@keyframes loaderOrbiter {
+  0% { transform: rotate3d(1, 1, 0, 0deg) translateX(55px) rotate3d(1, 1, 0, 0deg); opacity: 0.8; }
+  50% { transform: rotate3d(1, 1, 0, 180deg) translateX(55px) rotate3d(1, 1, 0, -180deg); opacity: 0.3; }
+  100% { transform: rotate3d(1, 1, 0, 360deg) translateX(55px) rotate3d(1, 1, 0, -360deg); opacity: 0.8; }
+}
+
+@keyframes loaderSpatialExit {
+  0% { opacity: 1; transform: scale(1) translateZ(0); }
+  50% { opacity: 0.8; transform: scale(1.08) translateZ(80px); }
+  100% { opacity: 0; transform: scale(1.18) translateZ(200px); visibility: hidden; }
+}
+
+/* 2. PHYSICS CURSOR SQUASH & STRETCH */
+@keyframes cursorWakeFloat {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
+  100% { transform: translate(-50%, -50%) scale(0.1); opacity: 0; }
+}
+
+/* 3. TRUE 3D TYPOGRAPHY BREATHING */
+@keyframes glyphBreath3D {
+  0%, 100% { transform: perspective(700px) translateZ(0px) rotateX(0deg) rotateY(0deg); }
+  50% { transform: perspective(700px) translateZ(14px) rotateX(-2deg) rotateY(2deg); }
+}
+
+/* 4. AURORA MULTI-DEPTH PLANES */
+@keyframes auroraPlaneFar {
+  0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+  50% { transform: translate(-40px, 30px) rotate(4deg) scale(1.08); }
+}
+
+@keyframes auroraPlaneMid {
+  0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); filter: blur(65px) hue-rotate(0deg); }
+  50% { transform: translate(50px, -35px) scale(1.12) rotate(-6deg); filter: blur(85px) hue-rotate(20deg); }
+}
+
+@keyframes auroraPlaneNear {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.05; }
+  50% { transform: translate(-30px, -40px) scale(1.05); opacity: 0.09; }
+}
+
+/* 5. MECHANICAL 3D NUMBERS */
+@keyframes mechanicalFlipIn {
+  0% { transform: perspective(400px) rotateX(-90deg) translateY(-10px); opacity: 0; filter: blur(2px); }
+  65% { transform: perspective(400px) rotateX(12deg) translateY(2px); opacity: 1; filter: blur(0); }
+  100% { transform: perspective(400px) rotateX(0deg) translateY(0); opacity: 1; filter: blur(0); }
+}
+
+/* 6. TIMELINE ENERGY BEAM PULSE */
+@keyframes beamHeadTravel {
+  0%, 100% { filter: drop-shadow(0 0 6px rgba(201,168,76,0.8)) drop-shadow(0 0 14px rgba(201,168,76,0.4)); }
+  50% { filter: drop-shadow(0 0 12px rgba(201,168,76,1)) drop-shadow(0 0 24px rgba(201,168,76,0.6)); }
+}
+
+@keyframes nodeEnergySurge {
+  0% { transform: translate(-50%, 0) scale(1); box-shadow: 0 0 0 0 rgba(201,168,76,0.4); }
+  50% { transform: translate(-50%, 0) scale(1.3); box-shadow: 0 0 24px 6px rgba(201,168,76,0.7); }
+  100% { transform: translate(-50%, 0) scale(1); box-shadow: 0 0 12px 2px rgba(201,168,76,0.3); }
+}
+
+/* 7. DISTINCTIVE SVG ICON MOTIONS */
+@keyframes iconSparkTwinkle {
+  0%, 100% { transform: rotate(0deg) scale(1); filter: drop-shadow(0 0 3px rgba(201,168,76,0.3)); }
+  25% { transform: rotate(15deg) scale(1.18); filter: drop-shadow(0 0 8px rgba(201,168,76,0.7)); }
+  50% { transform: rotate(-8deg) scale(0.95); }
+  75% { transform: rotate(6deg) scale(1.12); filter: drop-shadow(0 0 6px rgba(201,168,76,0.5)); }
+}
+
+@keyframes iconCutScissor {
+  0%, 100% { transform: rotate(0deg); }
+  30% { transform: rotate(-12deg) scale(1.05); }
+  50% { transform: rotate(8deg) scale(0.98); }
+  70% { transform: rotate(-4deg); }
+}
+
+@keyframes iconGradeWheel {
+  0% { transform: rotate(0deg); filter: hue-rotate(0deg); }
+  50% { transform: rotate(180deg); filter: hue-rotate(45deg); }
+  100% { transform: rotate(360deg); filter: hue-rotate(0deg); }
+}
+
+@keyframes iconHexCrosshair {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(60deg) scale(1.12); }
+}
+
+@keyframes iconSoundEqualizer {
+  0%, 100% { transform: scaleY(1); }
+  35% { transform: scaleY(1.35); }
+  70% { transform: scaleY(0.75); }
+}
+
+@keyframes iconCubeGyroscope {
+  0% { transform: perspective(400px) rotateX(0deg) rotateY(0deg); }
+  25% { transform: perspective(400px) rotateX(15deg) rotateY(25deg); }
+  50% { transform: perspective(400px) rotateX(0deg) rotateY(50deg); }
+  75% { transform: perspective(400px) rotateX(-15deg) rotateY(25deg); }
+  100% { transform: perspective(400px) rotateX(0deg) rotateY(0deg); }
+}
+
+@keyframes iconPlayPress {
+  0%, 100% { transform: scale(1) translateX(0); }
+  50% { transform: scale(1.15) translateX(2px); filter: drop-shadow(0 0 8px rgba(201,168,76,0.6)); }
+}
+
+@keyframes iconMessageBeacon {
+  0%, 100% { transform: scale(1); }
+  40% { transform: scale(1.14) translateY(-2px); }
+  70% { transform: scale(0.96) translateY(1px); }
+}
+
+/* ─── 8. BESPOKE PLATFORM 3D ORBITAL & KINETIC ENGINES (SOCIAL) ─── */
+
+/* 1. WHATSAPP: Sonar Wave Echo & Radar Beacon */
+@keyframes sonarPulse {
+  0% {
+    transform: scale(0.7);
+    opacity: 0.9;
+    border-color: rgba(37, 211, 102, 0.7);
+  }
+  50% {
+    opacity: 0.45;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+    border-color: rgba(37, 211, 102, 0);
+  }
+}
+
+@keyframes whatsappRadarOrbit {
+  0% {
+    transform: rotateX(62deg) rotateZ(0deg) translateX(26px) rotateZ(0deg) rotateX(-62deg);
+    filter: drop-shadow(0 0 6px #25D366);
+    opacity: 0.95;
+  }
+  50% {
+    transform: rotateX(62deg) rotateZ(180deg) translateX(26px) rotateZ(-180deg) rotateX(-62deg);
+    filter: drop-shadow(0 0 2px #25D366);
+    opacity: 0.4;
+  }
+  100% {
+    transform: rotateX(62deg) rotateZ(360deg) translateX(26px) rotateZ(-360deg) rotateX(-62deg);
+    filter: drop-shadow(0 0 6px #25D366);
+    opacity: 0.95;
+  }
+}
+
+/* 2. FACEBOOK: 3D Dual Gyroscope Interlocking Rings & Counter-Satellites */
+@keyframes gyroSpin1 {
+  0% {
+    transform: rotateX(58deg) rotateY(32deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(58deg) rotateY(32deg) rotateZ(360deg);
+  }
+}
+
+@keyframes gyroSpin2 {
+  0% {
+    transform: rotateX(-58deg) rotateY(-32deg) rotateZ(360deg);
+  }
+  100% {
+    transform: rotateX(-58deg) rotateY(-32deg) rotateZ(0deg);
+  }
+}
+
+@keyframes gyroSatOrbit1 {
+  0% {
+    transform: rotateX(58deg) rotateY(32deg) rotateZ(0deg) translateX(27px) rotateZ(0deg) rotateY(-32deg) rotateX(-58deg);
+    opacity: 0.95;
+  }
+  50% {
+    transform: rotateX(58deg) rotateY(32deg) rotateZ(180deg) translateX(27px) rotateZ(-180deg) rotateY(-32deg) rotateX(-58deg);
+    opacity: 0.35;
+  }
+  100% {
+    transform: rotateX(58deg) rotateY(32deg) rotateZ(360deg) translateX(27px) rotateZ(-360deg) rotateY(-32deg) rotateX(-58deg);
+    opacity: 0.95;
+  }
+}
+
+@keyframes gyroSatOrbit2 {
+  0% {
+    transform: rotateX(-58deg) rotateY(-32deg) rotateZ(360deg) translateX(27px) rotateZ(-360deg) rotateY(32deg) rotateX(58deg);
+    opacity: 0.35;
+  }
+  50% {
+    transform: rotateX(-58deg) rotateY(-32deg) rotateZ(180deg) translateX(27px) rotateZ(-180deg) rotateY(32deg) rotateX(58deg);
+    opacity: 0.95;
+  }
+  100% {
+    transform: rotateX(-58deg) rotateY(-32deg) rotateZ(0deg) translateX(27px) rotateZ(0deg) rotateY(32deg) rotateX(58deg);
+    opacity: 0.35;
+  }
+}
+
+/* 3. X / TWITTER: Kinetic Diamond Perimeter & Razor Spark Snap */
+@keyframes kineticDiamondSpin {
+  0% {
+    transform: rotate(45deg) scale(0.96);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    transform: rotate(45deg) scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.45);
+  }
+  100% {
+    transform: rotate(45deg) scale(0.96);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  }
+}
+
+@keyframes kineticSparkPerimeter {
+  0% {
+    top: 0%; left: 50%;
+    transform: translate(-50%, -50%) scale(1.4);
+    box-shadow: 0 0 12px #ffffff;
+  }
+  25% {
+    top: 50%; left: 100%;
+    transform: translate(-50%, -50%) scale(1.1);
+    box-shadow: 0 0 8px #ffffff;
+  }
+  50% {
+    top: 100%; left: 50%;
+    transform: translate(-50%, -50%) scale(1.4);
+    box-shadow: 0 0 12px #ffffff;
+  }
+  75% {
+    top: 50%; left: 0%;
+    transform: translate(-50%, -50%) scale(1.1);
+    box-shadow: 0 0 8px #ffffff;
+  }
+  100% {
+    top: 0%; left: 50%;
+    transform: translate(-50%, -50%) scale(1.4);
+    box-shadow: 0 0 12px #ffffff;
+  }
+}
+
+@keyframes kineticGlarePass {
+  0% {
+    transform: translateX(-120%) rotate(35deg);
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateX(140%) rotate(35deg);
+    opacity: 0;
+  }
+}
+
+/* 4. INSTAGRAM: Camera Aperture Shutter & Chromatic Sunset Halo */
+@keyframes apertureIrisSpin {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.08);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+@keyframes prismPhotonOrbit {
+  0% {
+    transform: rotate(0deg) translateX(28px) rotate(0deg);
+    background: #E1306C;
+    box-shadow: 0 0 10px #E1306C, 0 0 18px #FD1D1D;
+  }
+  33% {
+    background: #833AB4;
+    box-shadow: 0 0 10px #833AB4, 0 0 18px #C13584;
+  }
+  66% {
+    background: #F77737;
+    box-shadow: 0 0 10px #F77737, 0 0 18px #FFDC80;
+  }
+  100% {
+    transform: rotate(360deg) translateX(28px) rotate(-360deg);
+    background: #E1306C;
+    box-shadow: 0 0 10px #E1306C, 0 0 18px #FD1D1D;
+  }
+}
+
+@keyframes chromaticHaloBreathe {
+  0%, 100% {
+    transform: scale(0.92);
+    opacity: 0.35;
+    filter: blur(10px);
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.75;
+    filter: blur(14px);
+  }
+}
+
+/* 5. TELEGRAM: Aerodynamic Helical Vortex & Jetstream Glider */
+@keyframes aeroVortexRoll {
+  0% {
+    transform: perspective(600px) rotateX(68deg) rotateY(18deg) rotateZ(0deg);
+  }
+  100% {
+    transform: perspective(600px) rotateX(68deg) rotateY(18deg) rotateZ(360deg);
+  }
+}
+
+@keyframes jetstreamGliderOrbit {
+  0% {
+    transform: perspective(600px) rotateX(68deg) rotateY(18deg) rotateZ(0deg) translateX(27px) rotateZ(0deg) rotateY(-18deg) rotateX(-68deg) rotate(22deg);
+    opacity: 0.95;
+    box-shadow: 0 0 12px #00e5ff, 0 0 20px #0088cc;
+  }
+  50% {
+    transform: perspective(600px) rotateX(68deg) rotateY(18deg) rotateZ(180deg) translateX(27px) rotateZ(-180deg) rotateY(-18deg) rotateX(-68deg) rotate(-15deg);
+    opacity: 0.45;
+    box-shadow: 0 0 6px #00e5ff;
+  }
+  100% {
+    transform: perspective(600px) rotateX(68deg) rotateY(18deg) rotateZ(360deg) translateX(27px) rotateZ(-360deg) rotateY(-18deg) rotateX(-68deg) rotate(22deg);
+    opacity: 0.95;
+    box-shadow: 0 0 12px #00e5ff, 0 0 20px #0088cc;
+  }
+}
+
+@keyframes aeroVaporFlow {
+  0% {
+    transform: rotate(0deg) scale(0.9);
+    opacity: 0.3;
+  }
+  50% {
+    transform: rotate(180deg) scale(1.12);
+    opacity: 0.65;
+  }
+  100% {
+    transform: rotate(360deg) scale(0.9);
+    opacity: 0.3;
+  }
+}
+
+/* 9. BESPOKE INTERNAL SVG ICON MOTION ENGINES (WHEN MOUSE MOVES ON ICONS) */
+
+/* 1. WHATSAPP: Telephone Ringing Jiggle, Speech Dot Waves & Acoustic Arcs */
+@keyframes waBubbleRing {
+  0% { transform: scale(1) rotate(0deg); }
+  15% { transform: scale(1.12) rotate(-8deg); }
+  30% { transform: scale(1.08) rotate(8deg); }
+  45% { transform: scale(1.14) rotate(-5deg); }
+  60% { transform: scale(1.06) rotate(4deg); }
+  75% { transform: scale(1.1) rotate(-2deg); }
+  90% { transform: scale(1.02) rotate(1deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+@keyframes waDotBounce {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(-3px); opacity: 1; filter: drop-shadow(0 0 3px #25D366); }
+}
+
+@keyframes waAcousticWave {
+  0% { transform: scale(0.6) translateX(-2px); opacity: 0; }
+  40% { opacity: 1; }
+  100% { transform: scale(1.35) translateX(3px); opacity: 0; }
+}
+
+/* 2. FACEBOOK: 3D Isometric Hologram Flip & Signal Nodes */
+@keyframes fbSpin3D {
+  0% { transform: perspective(300px) rotateY(0deg) scale(1); }
+  50% { transform: perspective(300px) rotateY(180deg) scale(1.15); filter: drop-shadow(0 0 8px #1877F2); }
+  100% { transform: perspective(300px) rotateY(360deg) scale(1); }
+}
+
+@keyframes fbNodePulse {
+  0%, 100% { transform: scale(0.8); opacity: 0.4; }
+  50% { transform: scale(1.6); opacity: 1; filter: drop-shadow(0 0 5px #60a5fa); }
+}
+
+/* 3. X / TWITTER: Katana Razor Cross-Slash & Clash Spark */
+@keyframes xKatanaSlice {
+  0% { transform: scale(1) skewX(0deg); }
+  30% { transform: scale(1.18) skewX(-14deg) translateY(-2px); }
+  60% { transform: scale(1.12) skewX(10deg) translateY(1px); }
+  100% { transform: scale(1) skewX(0deg); }
+}
+
+@keyframes xSparkBurst {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(2.2); opacity: 1; filter: drop-shadow(0 0 8px #ffffff); }
+  100% { transform: scale(0); opacity: 0; }
+}
+
+@keyframes xSlashBeamSwipe {
+  0% { stroke-dashoffset: 40; opacity: 0; }
+  40% { opacity: 1; }
+  100% { stroke-dashoffset: -40; opacity: 0; }
+}
+
+/* 4. INSTAGRAM: Mechanical Shutter Recoil, Lens Dilate & Strobe Flash */
+@keyframes igShutterRecoil {
+  0% { transform: scale(1); }
+  25% { transform: scale(0.92) translateY(1.5px); }
+  50% { transform: scale(1.12) translateY(-1px); }
+  75% { transform: scale(0.97); }
+  100% { transform: scale(1); }
+}
+
+@keyframes igLensZoom {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.3); stroke: #FD1D1D; }
+}
+
+@keyframes igPupilDilate {
+  0%, 100% { transform: scale(1); }
+  40% { transform: scale(0.5); }
+  70% { transform: scale(1.4); fill: #FFDC80; }
+}
+
+@keyframes igFlashStrobe {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  45% { opacity: 1; transform: scale(2.8); filter: drop-shadow(0 0 12px #ffffff) drop-shadow(0 0 20px #E1306C); }
+}
+
+/* 5. TELEGRAM: Supersonic Flight, Roll Banking & Wind Streaks */
+@keyframes tgPlaneFly {
+  0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+  30% { transform: translate(3px, -4px) rotate(16deg) scale(1.22); }
+  60% { transform: translate(-2px, -2px) rotate(-12deg) scale(1.12); }
+  85% { transform: translate(1px, -1px) rotate(4deg) scale(1.05); }
+  100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+}
+
+@keyframes tgWindStream {
+  0% { stroke-dashoffset: 20; opacity: 0; transform: translateX(2px); }
+  50% { opacity: 0.9; }
+  100% { stroke-dashoffset: -20; opacity: 0; transform: translateX(-6px); }
+}
+
+/* 10. FOOTER AMBIENT PARTICLES */
+@keyframes stardustTwinkle {
+  0%, 100% { transform: translateY(0) scale(0.6); opacity: 0.2; }
+  50% { transform: translateY(-8px) scale(1.1); opacity: 0.8; filter: drop-shadow(0 0 4px rgba(201,168,76,0.8)); }
+}

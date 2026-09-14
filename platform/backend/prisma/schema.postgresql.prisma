@@ -1,0 +1,133 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum AdminRole {
+  SUPER_ADMIN
+  ADMIN
+  EDITOR
+}
+
+enum VideoStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum VideoVisibility {
+  PUBLIC
+  PRIVATE
+  UNLISTED
+}
+
+enum UploadStatus {
+  INITIATED
+  UPLOADING
+  COMPLETED
+  ABORTED
+}
+
+model Admin {
+  id                  String         @id @default(uuid())
+  email               String         @unique
+  passwordHash        String
+  name                String
+  role                AdminRole      @default(EDITOR)
+  isActive            Boolean        @default(true)
+  failedLoginAttempts Int            @default(0)
+  lockedUntil         DateTime?
+  lastLoginAt         DateTime?
+  createdAt           DateTime       @default(now())
+  updatedAt           DateTime       @updatedAt
+
+  refreshTokens       RefreshToken[]
+  videos              Video[]        @relation("UploadedVideos")
+  auditLogs           AuditLog[]
+  uploadSessions      UploadSession[]
+
+  @@index([email])
+  @@index([role])
+}
+
+model RefreshToken {
+  id         String    @id @default(uuid())
+  adminId    String
+  tokenHash  String    @unique
+  expiresAt  DateTime
+  revokedAt  DateTime?
+  createdAt  DateTime  @default(now())
+  ipAddress  String?
+  userAgent  String?
+
+  admin      Admin     @relation(fields: [adminId], references: [id], onDelete: Cascade)
+
+  @@index([adminId])
+  @@index([tokenHash])
+}
+
+model Video {
+  id           String          @id @default(uuid())
+  title        String
+  slug         String          @unique
+  description  String?
+  storageKey   String          @unique
+  thumbnailKey String?
+  mimeType     String
+  fileSize     BigInt
+  duration     Float           @default(0)
+  uploadedBy   String
+  status       VideoStatus     @default(DRAFT)
+  visibility   VideoVisibility @default(PRIVATE)
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+  publishedAt  DateTime?
+
+  uploader     Admin           @relation("UploadedVideos", fields: [uploadedBy], references: [id], onDelete: Restrict)
+
+  @@index([status])
+  @@index([visibility])
+  @@index([uploadedBy])
+  @@index([createdAt])
+  @@index([slug])
+}
+
+model AuditLog {
+  id           String   @id @default(uuid())
+  adminId      String?
+  action       String
+  resourceType String?
+  resourceId   String?
+  ipAddress    String?
+  userAgent    String?
+  metadata     Json?
+  createdAt    DateTime @default(now())
+
+  admin        Admin?   @relation(fields: [adminId], references: [id], onDelete: SetNull)
+
+  @@index([adminId])
+  @@index([action])
+  @@index([createdAt])
+}
+
+model UploadSession {
+  id            String       @id @default(uuid())
+  adminId       String
+  fileName      String
+  mimeType      String
+  fileSize      BigInt
+  uploadedBytes BigInt       @default(0)
+  storageKey    String       @unique
+  status        UploadStatus @default(INITIATED)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  admin         Admin        @relation(fields: [adminId], references: [id], onDelete: Cascade)
+
+  @@index([adminId])
+  @@index([status])
+}

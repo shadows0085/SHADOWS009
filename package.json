@@ -1,0 +1,24 @@
+{
+  "name": "shadow-portfolio",
+  "version": "1.0.0",
+  "description": "SHADOW — Video Editor & Motion Designer Portfolio",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "chrome": "start chrome http://localhost:3000 || node server.js",
+    "serve": "node server.js"
+  },
+  "keywords": [
+    "portfolio",
+    "video-editor",
+    "motion-designer"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/multer": "^2.2.0",
+    "@types/node": "^22.20.2"
+  }
+}
