@@ -246,8 +246,12 @@ const server = http.createServer(async (req, res) => {
   // 5c. React Admin Platform SPA: /admin, /admin/*, /login, /dashboard, etc.
   if (isAdminRoute) {
     const adminIndex = path.join(FRONTEND_DIST, 'index.html');
+    const rootAdminIndex = path.join(__dirname, 'admin', 'index.html');
     if (fs.existsSync(adminIndex)) {
       return serveStaticFile(adminIndex, '/admin', res);
+    }
+    if (fs.existsSync(rootAdminIndex)) {
+      return serveStaticFile(rootAdminIndex, '/admin', res);
     }
     // Resilient fallback: if React frontend dist was not built or omitted by gitignore,
     // serve the standalone SOC Admin Console so /admin and /admin/login NEVER return 404

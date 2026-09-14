@@ -1,3 +1,31 @@
+[build]
+  publish = "."
+
+# Auto-correct relative URLs like /index.html/admin/login
+[[redirects]]
+  from = "/index.html/admin/*"
+  to = "/admin/:splat"
+  status = 301
+  force = true
+
+# Admin Panel SPA (React Router at /admin and /admin/*)
+[[redirects]]
+  from = "/admin/*"
+  to = "/admin/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin"
+  to = "/admin/index.html"
+  status = 200
+
+# Standalone SOC Console
+[[redirects]]
+  from = "/soc"
+  to = "/admin.html"
+  status = 200
+
+# Portfolio Website SPA fallback
 [[redirects]]
   from = "/*"
   to = "/index.html"

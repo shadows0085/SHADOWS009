@@ -1,1 +1,12 @@
-/*    /index.html   200
+# Auto-correct relative URLs like /index.html/admin/login
+/index.html/admin/*    /admin/:splat    301!
+
+# Admin Panel SPA routes (React Vite Platform)
+/admin/*               /admin/index.html   200
+/admin                 /admin/index.html   200
+
+# Standalone Security Operations Console (optional direct access)
+/soc                   /admin.html         200
+
+# Main Portfolio Website SPA fallback
+/*                     /index.html         200
