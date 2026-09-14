@@ -242,6 +242,13 @@ const server = http.createServer(async (req, res) => {
     if (fs.existsSync(adminIndex)) {
       return serveStaticFile(adminIndex, '/admin', res);
     }
+    // Resilient fallback: if React frontend dist was not built or omitted by gitignore,
+    // serve the standalone SOC Admin Console so /admin and /admin/login NEVER return 404
+    const socFallback = path.join(config.PUBLIC_DIR, 'admin.html');
+    if (fs.existsSync(socFallback)) {
+      console.warn(`[Admin Gateway] React build not found at ${adminIndex}; serving standalone SOC console`);
+      return serveStaticFile(socFallback, '/admin', res);
+    }
   }
 
   // 6. Root Portfolio Website & Static Files

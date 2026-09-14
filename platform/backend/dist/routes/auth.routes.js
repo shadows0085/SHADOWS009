@@ -1,0 +1,17 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const auth_controller_1 = require("../controllers/auth.controller");
+const auth_middleware_1 = require("../middleware/auth.middleware");
+const rateLimiter_middleware_1 = require("../middleware/rateLimiter.middleware");
+const validation_middleware_1 = require("../middleware/validation.middleware");
+const auth_validator_1 = require("../validators/auth.validator");
+const router = (0, express_1.Router)();
+router.post('/login', rateLimiter_middleware_1.authRateLimiter, (0, validation_middleware_1.validateRequest)({ body: auth_validator_1.loginSchema }), auth_controller_1.AuthController.login);
+router.post('/refresh', auth_controller_1.AuthController.refreshToken);
+router.post('/logout', auth_controller_1.AuthController.logout);
+router.get('/me', auth_middleware_1.authenticateAdmin, auth_controller_1.AuthController.getMe);
+router.post('/change-password', auth_middleware_1.authenticateAdmin, (0, validation_middleware_1.validateRequest)({ body: auth_validator_1.changePasswordSchema }), auth_controller_1.AuthController.changePassword);
+router.get('/sessions', auth_middleware_1.authenticateAdmin, auth_controller_1.AuthController.getActiveSessions);
+router.post('/sessions/revoke-all', auth_middleware_1.authenticateAdmin, auth_controller_1.AuthController.revokeAllSessions);
+exports.default = router;

@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const soc_controller_1 = require("../controllers/soc.controller");
+const auth_middleware_1 = require("../middleware/auth.middleware");
+const router = (0, express_1.Router)();
+router.use(auth_middleware_1.authenticateAdmin);
+router.get('/telemetry', soc_controller_1.SocController.getTelemetry);
+router.post('/killswitch', (0, auth_middleware_1.requireRole)(['SUPER_ADMIN']), soc_controller_1.SocController.triggerKillswitch);
+exports.default = router;
