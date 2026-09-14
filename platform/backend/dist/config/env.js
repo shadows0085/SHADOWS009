@@ -40,7 +40,7 @@ const envSchema = zod_1.z.object({
     ALLOWED_ORIGINS: zod_1.z.string().default('http://localhost:3000,http://localhost:5173,http://localhost:4000'),
     SUPER_ADMIN_NAME: zod_1.z.string().default('Master Architect'),
     SUPER_ADMIN_EMAIL: zod_1.z.string().email().default('admin@vault.local'),
-    SUPER_ADMIN_PASSWORD: zod_1.z.string().min(12).optional()
+    SUPER_ADMIN_PASSWORD: zod_1.z.string().min(12).optional().or(zod_1.z.literal(''))
 });
 const parseEnv = () => {
     const result = envSchema.safeParse(process.env);

@@ -44,7 +44,7 @@ const envSchema = z.object({
 
   SUPER_ADMIN_NAME: z.string().default('Master Architect'),
   SUPER_ADMIN_EMAIL: z.string().email().default('admin@vault.local'),
-  SUPER_ADMIN_PASSWORD: z.string().min(12).optional()
+  SUPER_ADMIN_PASSWORD: z.string().min(12).optional().or(z.literal(''))
 });
 
 const parseEnv = () => {
