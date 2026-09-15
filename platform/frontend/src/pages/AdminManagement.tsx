@@ -69,8 +69,9 @@ export const AdminManagementPage: React.FC = () => {
     setErrorMsg(null);
     const res = await ApiClient.request<AdminUser[]>('/api/v1/admins');
     if (res.success && res.data) {
-      setAdmins(res.data);
+      setAdmins(Array.isArray(res.data) ? res.data : []);
     } else {
+      setAdmins([]);
       setErrorMsg(res.error?.message || 'Failed to load team registry');
     }
     setLoading(false);
@@ -292,7 +293,7 @@ export const AdminManagementPage: React.FC = () => {
         <div className="glass-panel p-4 rounded-xl border border-slate-800 flex items-center justify-between">
           <div>
             <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Total Members</div>
-            <div className="text-xl font-bold text-slate-100 mt-0.5">{admins.length}</div>
+            <div className="text-xl font-bold text-slate-100 mt-0.5">{(admins || []).length}</div>
           </div>
           <div className="w-10 h-10 rounded-xl bg-slate-800/80 border border-slate-700 flex items-center justify-center text-brand-gold">
             <UserCheck className="w-5 h-5" />
@@ -303,7 +304,7 @@ export const AdminManagementPage: React.FC = () => {
           <div>
             <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Active Accounts</div>
             <div className="text-xl font-bold text-emerald-400 mt-0.5">
-              {admins.filter(a => a.isActive).length}
+              {(admins || []).filter(a => a.isActive).length}
             </div>
           </div>
           <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
@@ -315,7 +316,7 @@ export const AdminManagementPage: React.FC = () => {
           <div>
             <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Super Admins</div>
             <div className="text-xl font-bold text-purple-400 mt-0.5">
-              {admins.filter(a => a.role === 'SUPER_ADMIN').length}
+              {(admins || []).filter(a => a.role === 'SUPER_ADMIN').length}
             </div>
           </div>
           <div className="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400">
@@ -327,7 +328,7 @@ export const AdminManagementPage: React.FC = () => {
           <div>
             <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Editors / Staff</div>
             <div className="text-xl font-bold text-amber-400 mt-0.5">
-              {admins.filter(a => a.role !== 'SUPER_ADMIN').length}
+              {(admins || []).filter(a => a.role !== 'SUPER_ADMIN').length}
             </div>
           </div>
           <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
@@ -340,7 +341,7 @@ export const AdminManagementPage: React.FC = () => {
       <div className="glass-panel rounded-xl border border-slate-800 overflow-hidden shadow-2xl">
         <div className="p-4 border-b border-slate-800 bg-slate-900/60 flex items-center justify-between">
           <span className="text-xs font-mono text-slate-300 uppercase tracking-wider">
-            Active Directory ({admins.length} Personnel)
+            Active Directory ({(admins || []).length} Personnel)
           </span>
           <span className="text-[11px] font-mono text-slate-500">
             All changes require SUPER_ADMIN clearance
@@ -369,7 +370,7 @@ export const AdminManagementPage: React.FC = () => {
                     </div>
                   </td>
                 </tr>
-              ) : admins.length === 0 ? (
+              ) : (admins || []).length === 0 ? (
                 <tr>
                   <td colSpan={6} className="px-6 py-12 text-center text-slate-500 font-mono">
                     No administrators found in directory.
@@ -836,11 +837,11 @@ export const AdminManagementPage: React.FC = () => {
                 {/* Audit Trail List */}
                 <div className="space-y-2">
                   <div className="text-xs font-bold text-slate-300 font-mono uppercase tracking-wider">
-                    Recent Action History ({activityData.recentLogs.length} events)
+                    Recent Action History ({(activityData?.recentLogs || []).length} events)
                   </div>
 
                   <div className="glass-panel rounded-xl border border-slate-800 overflow-hidden max-h-64 overflow-y-auto">
-                    {activityData.recentLogs.length === 0 ? (
+                    {(activityData?.recentLogs || []).length === 0 ? (
                       <div className="p-6 text-center text-slate-500 font-mono">
                         No recorded action history for this account yet.
                       </div>

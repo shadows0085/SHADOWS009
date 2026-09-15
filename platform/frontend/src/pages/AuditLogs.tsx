@@ -20,8 +20,10 @@ export const AuditLogsPage: React.FC = () => {
 
     const res = await ApiClient.request<AuditLogItem[]>(`/api/v1/audit-logs?${params.toString()}`);
     if (res.success && res.data) {
-      setLogs(res.data);
+      setLogs(Array.isArray(res.data) ? res.data : []);
       if (res.meta) setMeta(res.meta);
+    } else {
+      setLogs([]);
     }
     setLoading(false);
   };
@@ -81,14 +83,14 @@ export const AuditLogsPage: React.FC = () => {
                     Querying append-only security logs...
                   </td>
                 </tr>
-              ) : logs.length === 0 ? (
+              ) : (logs || []).length === 0 ? (
                 <tr>
                   <td colSpan={6} className="px-6 py-12 text-center text-slate-500">
                     No security events recorded under current filter.
                   </td>
                 </tr>
               ) : (
-                logs.map(log => (
+                (logs || []).map(log => (
                   <tr key={log.id} className="hover:bg-slate-800/30 transition">
                     <td className="px-6 py-3 text-slate-400">
                       {new Date(log.createdAt).toLocaleString()}

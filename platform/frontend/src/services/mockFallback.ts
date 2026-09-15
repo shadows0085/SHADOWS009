@@ -319,5 +319,42 @@ export async function handleStaticFallback(
     };
   }
 
-  return null;
+  // 11. Portfolio Videos
+  if (url === '/portfolio/videos') {
+    return {
+      success: true,
+      data: [
+        { label: 'Video 1 — Showreel (4K HDR)', path: 'uploaded-video/project1.mp4' },
+        { label: 'Video 2 — Quantum Drift (4K HDR)', path: 'uploaded-video/project2.mp4' }
+      ]
+    };
+  }
+
+  // 12. File Editor Tree
+  if (url === '/files/tree') {
+    return {
+      success: true,
+      data: [
+        { name: 'index.html', path: 'index.html', isDir: false },
+        { name: 'css', path: 'css', isDir: true, children: [
+          { name: 'style.css', path: 'css/style.css', isDir: false }
+        ]},
+        { name: 'js', path: 'js', isDir: true, children: [
+          { name: 'main.js', path: 'js/main.js', isDir: false }
+        ]}
+      ]
+    };
+  }
+
+  if (url === '/files/read') {
+    return {
+      success: true,
+      data: {
+        content: '<!-- SHADOW Studio Core Asset -->\n<!DOCTYPE html>\n<html>\n  <head><title>SHADOW</title></head>\n  <body></body>\n</html>',
+        path: 'index.html'
+      }
+    };
+  }
+
+  return { success: true, data: [] };
 }

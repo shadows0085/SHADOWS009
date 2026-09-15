@@ -18,7 +18,10 @@ export const SecuritySettingsPage: React.FC = () => {
     setLoadingSessions(true);
     const res = await ApiClient.request<{ sessions: SessionItem[] }>('/api/v1/auth/sessions');
     if (res.success && res.data) {
-      setSessions(res.data.sessions);
+      const list = res.data.sessions || (Array.isArray(res.data) ? res.data : []);
+      setSessions(Array.isArray(list) ? list : []);
+    } else {
+      setSessions([]);
     }
     setLoadingSessions(false);
   };
@@ -169,10 +172,12 @@ export const SecuritySettingsPage: React.FC = () => {
         <div className="divide-y divide-slate-800 font-mono text-xs">
           {loadingSessions ? (
             <div className="py-6 text-center text-slate-500">Querying session store...</div>
-          ) : sessions.length === 0 ? (
-            <div className="py-6 text-center text-slate-500">No active refresh sessions.</div>
+          ) : (sessions || []).length === 0 ? (
+            <div className="p-8 text-center text-slate-500 font-mono text-xs">
+              No other active sessions detected.
+            </div>
           ) : (
-            sessions.map(s => (
+            (sessions || []).map(s => (
               <div key={s.id} className="py-3 flex items-center justify-between">
                 <div>
                   <p className="text-slate-200 font-semibold">{s.ipAddress || '127.0.0.1'}</p>

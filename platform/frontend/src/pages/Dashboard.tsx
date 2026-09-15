@@ -36,7 +36,11 @@ export const DashboardPage: React.FC = () => {
       ]);
 
       if (mRes.success && mRes.data) setMetrics(mRes.data);
-      if (lRes.success && lRes.data) setRecentLogs(lRes.data);
+      if (lRes.success && lRes.data) {
+        setRecentLogs(Array.isArray(lRes.data) ? lRes.data : []);
+      } else {
+        setRecentLogs([]);
+      }
       if (soc) setSocData(soc);
     } catch {}
     setLoading(false);
@@ -335,14 +339,14 @@ export const DashboardPage: React.FC = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800/60 font-mono">
-              {recentLogs.length === 0 ? (
+              {(recentLogs || []).length === 0 ? (
                 <tr>
                   <td colSpan={5} className="py-6 text-center text-slate-500">
                     No security incidents recorded.
                   </td>
                 </tr>
               ) : (
-                recentLogs.map(log => (
+                (recentLogs || []).map(log => (
                   <tr key={log.id} className="hover:bg-slate-800/30 transition">
                     <td className="py-3 px-3 text-slate-400">
                       {new Date(log.createdAt).toLocaleTimeString()}

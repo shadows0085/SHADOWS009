@@ -56,8 +56,10 @@ export const VideosPage: React.FC = () => {
 
     const res = await ApiClient.request<VideoItem[]>(`/api/v1/videos?${params.toString()}`);
     if (res.success && res.data) {
-      setVideos(res.data);
+      setVideos(Array.isArray(res.data) ? res.data : []);
       if (res.meta) setMeta(res.meta);
+    } else {
+      setVideos([]);
     }
     setLoading(false);
   };
@@ -208,14 +210,14 @@ export const VideosPage: React.FC = () => {
                     Querying encrypted repository records...
                   </td>
                 </tr>
-              ) : videos.length === 0 ? (
+              ) : (videos || []).length === 0 ? (
                 <tr>
                   <td colSpan={7} className="px-6 py-12 text-center text-slate-500 font-mono">
                     No matching video records found.
                   </td>
                 </tr>
               ) : (
-                videos.map(video => (
+                (videos || []).map(video => (
                   <tr key={video.id} className="hover:bg-slate-800/30 transition">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
