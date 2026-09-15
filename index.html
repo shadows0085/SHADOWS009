@@ -467,15 +467,19 @@ body.has-banner nav {
 <section id="showcase">
   <div class="showcase-inner">
     <div class="showcase-player reveal">
-      <div class="showcase-video-area">
-        <div class="showcase-scene">
+      <div class="showcase-video-area" id="showcaseVideoArea">
+        <video id="showcaseMainVideo" class="showcase-main-video" autoplay muted loop playsinline preload="auto" poster="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;cursor:pointer;">
+          <source src="/uploaded-video/custom_mtykrpr1_betufull_places_showing_1080p_20260912120058.mp4" type="video/mp4">
+          <source src="/uploaded-video/no-1.mp4" type="video/mp4">
+        </video>
+        <div class="showcase-scene" style="pointer-events:none;opacity:0.22;z-index:3">
           <div class="showcase-lines"></div>
-          <div class="showcase-text-overlay">FEATURED</div>
+          <div class="showcase-text-overlay" style="display:none">FEATURED</div>
           <div class="showcase-center-glow"></div>
           <div style="position:absolute;width:2px;height:120px;background:linear-gradient(to bottom,transparent,rgba(201,168,76,0.4),transparent);left:30%;animation:filmScroll 3s linear infinite"></div>
           <div style="position:absolute;width:2px;height:80px;background:linear-gradient(to bottom,transparent,rgba(201,168,76,0.25),transparent);right:25%;animation:filmScroll 4s linear infinite 1.5s"></div>
         </div>
-        <div id="showcaseBadge" style="position:absolute;top:20px;left:20px;background:rgba(0,0,0,0.4);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.08);border-radius:99px;padding:6px 14px;font-size:10px;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase">◆ Featured</div>
+        <div id="showcaseBadge" style="position:absolute;top:20px;left:20px;background:rgba(0,0,0,0.4);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.08);border-radius:99px;padding:6px 14px;font-size:10px;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase;z-index:4">◆ Featured</div>
       </div>
       <div class="showcase-controls">
         <button class="sc-btn" id="showcasePrev" type="button" aria-label="Previous featured project"><svg class="ui-icon" aria-hidden="true"><use href="#icon-back"></use></svg></button>

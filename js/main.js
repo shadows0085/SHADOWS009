@@ -1573,33 +1573,119 @@
   let dynamicShowcaseProjects = [
     {
       title: '<em>Urban</em><br>Mirage',
-      assetId: 'asset-urban-mirage',
-      file: 'uploaded-video/no-1.mp4',
+      assetId: 'asset-showcase-featured',
+      file: 'uploaded-video/custom_mtykrpr1_betufull_places_showing_1080p_20260912120058.mp4',
       label: 'Urban Mirage',
       meta: 'Commercial · 4K HDR',
-      time: '2:34 / 4:12',
-      progress: '61%',
+      category: 'Commercial · 4K HDR',
+      badge: 'Featured',
+      time: '0:00 / 0:00',
+      progress: '0%',
       description: 'An architectural visual symphony — this commercial campaign captured the interplay of light, glass, and geometric symmetry through precision cinematography and master color grading.',
       productionTime: '4 wks',
       locations: '2 cities',
       resolution: '4K HDR'
     },
     {
+      title: '<em>Showreel</em><br>2026',
+      assetId: 'asset-urban-mirage',
+      file: 'uploaded-video/no-1.mp4',
+      label: 'Showreel 2026',
+      meta: 'Commercial · 4K HDR',
+      category: 'Commercial · 4K HDR',
+      badge: 'Director Cut',
+      time: '0:00 / 0:00',
+      progress: '0%',
+      description: 'The pinnacle of visual storytelling, featuring dynamic cinematography and cinematic cuts across multiple urban and narrative backdrops.',
+      productionTime: '3 wks',
+      locations: '2 cities',
+      resolution: '4K HDR'
+    },
+    {
       title: '<em>Sun</em><br>Onlight',
       assetId: 'asset-sun-onlight',
-      file: 'uploaded-video/no-2.mp4',
+      file: 'uploaded-video/custom_mtycguww_Motion_designer_creating_Shadow_____20260910152753.mp4',
       label: 'SUN ONLIGHT',
       meta: 'Commercial · 4K HDR',
-      time: '1:18 / 3:46',
-      progress: '34%',
+      category: 'Commercial · 4K HDR',
+      badge: 'Motion Work',
+      time: '0:00 / 0:00',
+      progress: '0%',
       description: 'A luminous solar-energy campaign built around warm horizons, precise pacing, and a hopeful sense of forward motion.',
       productionTime: '3 wks',
       locations: '3 deserts',
+      resolution: '4K HDR'
+    },
+    {
+      title: '<em>Silent</em><br>Waters',
+      assetId: 'asset-silent-waters',
+      file: 'uploaded-video/custom_mtxz93i8_betufull_places_showing_1080p_20260912120058.mp4',
+      label: 'Silent Waters',
+      meta: 'Film · 4K DCI HDR',
+      category: 'Film · 4K DCI HDR',
+      badge: 'Film Select',
+      time: '0:00 / 0:00',
+      progress: '0%',
+      description: 'Nordic narrative short meditating on stillness, natural atmosphere, and delicate human moments.',
+      productionTime: '5 wks',
+      locations: 'Fjords',
+      resolution: '4K DCI'
+    },
+    {
+      title: '<em>Amber</em><br>Hours',
+      assetId: 'asset-amber-hours',
+      file: 'uploaded-video/no-2.mp4',
+      label: 'Amber Hours',
+      meta: 'Motion · 4K 60FPS',
+      category: 'Motion · 4K 60FPS',
+      badge: 'Horology',
+      time: '0:00 / 0:00',
+      progress: '0%',
+      description: 'A study in horological motion: gear trains, sapphire reflections, and the weight of golden light.',
+      productionTime: '2 wks',
+      locations: 'Geneva',
+      resolution: '4K 60'
+    },
+    {
+      title: '<em>Velocity</em><br>Launch',
+      assetId: 'asset-velocity',
+      file: 'uploaded-video/custom_mtydc5of_betufull_places_showing_1080p_20260912120058.mp4',
+      label: 'Velocity',
+      meta: 'VFX · Super Slow-Mos',
+      category: 'VFX · Super Slow-Mos',
+      badge: 'High Speed',
+      time: '0:00 / 0:00',
+      progress: '0%',
+      description: 'High-speed track cinematography, kinetic camera moves, and hyper-stylized motion blur.',
+      productionTime: '3 wks',
+      locations: 'Monza',
+      resolution: '4K 120'
+    },
+    {
+      title: '<em>Neon</em><br>Reverie',
+      assetId: 'asset-neon-reverie',
+      file: 'uploaded-video/custom_mtxxwlrt_Man_looking_at_ocean_sunset_20260911231855.mp4',
+      label: 'Neon Reverie',
+      meta: 'Motion · Cybernetic Flow',
+      category: 'Motion · Cybernetic Flow',
+      badge: 'Cyber Flow',
+      time: '0:00 / 0:00',
+      progress: '0%',
+      description: 'Tokyo after dark: neon streaks, rain-soaked pavement, and synth-driven editing rhythms.',
+      productionTime: '4 wks',
+      locations: 'Tokyo',
       resolution: '4K HDR'
     }
   ];
 
   let currentShowcaseIndex = 0;
+
+  function formatShowcaseTime(seconds) {
+    if (!Number.isFinite(seconds) || seconds < 0) return '0:00';
+    const m = Math.floor(seconds / 60);
+    const s = Math.floor(seconds % 60);
+    return `${m}:${s < 10 ? '0' : ''}${s}`;
+  }
 
   function escapeHtml(str) {
     if (typeof str !== 'string') return '';
@@ -1629,15 +1715,15 @@
     const prodEl = document.getElementById('showcaseProdTime');
     const locEl = document.getElementById('showcaseLocations');
     const resEl = document.getElementById('showcaseResolution');
-    const videoArea = document.querySelector('.showcase-video-area');
+    const videoArea = document.getElementById('showcaseVideoArea') || document.querySelector('.showcase-video-area');
+    const showcaseVideo = document.getElementById('showcaseMainVideo');
+    const playBtn = document.getElementById('showcasePlay');
 
     if (!dynamicShowcaseProjects || dynamicShowcaseProjects.length === 0) return;
     const project = dynamicShowcaseProjects[currentShowcaseIndex % dynamicShowcaseProjects.length];
 
     if (title && project.title) title.innerHTML = sanitizeShowcaseTitle(project.title);
     if (description && project.description) description.textContent = project.description;
-    if (time && project.time) time.textContent = project.time;
-    if (progress && project.progress) progress.style.width = project.progress;
     if (badgeEl && project.badge) badgeEl.textContent = `◆ ${project.badge}`;
 
     if (prodEl && project.productionTime) {
@@ -1676,38 +1762,28 @@
       };
     }
 
-    // Optional background video playback in showcase video area if available
-    if (videoArea) {
-      let bgVideo = videoArea.querySelector('video.showcase-bg-video');
-      const targetAsset = project.file || project.assetId || '';
-      const targetSrc = targetAsset ? `/api/media/preview/${encodeURIComponent(targetAsset)}` : '';
-
-      if (targetSrc) {
-        if (!bgVideo) {
-          bgVideo = document.createElement('video');
-          bgVideo.className = 'showcase-bg-video';
-          bgVideo.setAttribute('muted', 'true');
-          bgVideo.muted = true;
-          bgVideo.setAttribute('loop', 'true');
-          bgVideo.loop = true;
-          bgVideo.setAttribute('playsinline', 'true');
-          bgVideo.setAttribute('aria-hidden', 'true');
-          bgVideo.style.position = 'absolute';
-          bgVideo.style.inset = '0';
-          bgVideo.style.width = '100%';
-          bgVideo.style.height = '100%';
-          bgVideo.style.objectFit = 'cover';
-          bgVideo.style.opacity = '0.45';
-          bgVideo.style.zIndex = '1';
-          bgVideo.style.transition = 'opacity 0.8s ease';
-          videoArea.insertBefore(bgVideo, videoArea.firstChild);
-        }
-        if (bgVideo.getAttribute('src') !== targetSrc) {
-          bgVideo.src = targetSrc;
-          bgVideo.load();
-          bgVideo.play().catch(() => {});
+    // Direct video element binding
+    const videoTargetSrc = project.file ? `/${project.file.replace(/^\/+/, '')}` : '';
+    if (showcaseVideo && videoTargetSrc) {
+      const currentSrc = showcaseVideo.getAttribute('data-active-src') || '';
+      if (currentSrc !== videoTargetSrc) {
+        showcaseVideo.setAttribute('data-active-src', videoTargetSrc);
+        showcaseVideo.pause();
+        showcaseVideo.innerHTML = `<source src="${videoTargetSrc}" type="video/mp4"><source src="/uploaded-video/no-1.mp4" type="video/mp4">`;
+        showcaseVideo.load();
+        const playPromise = showcaseVideo.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {});
         }
       }
+    }
+
+    // Update play button state icon
+    if (playBtn && showcaseVideo) {
+      const isPaused = showcaseVideo.paused;
+      playBtn.innerHTML = isPaused
+        ? '<svg class="ui-icon" aria-hidden="true"><use href="#icon-play"></use></svg>'
+        : '<svg class="ui-icon" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
     }
   }
 
@@ -1715,6 +1791,69 @@
     const previous = document.getElementById('showcasePrev');
     const play = document.getElementById('showcasePlay');
     const next = document.getElementById('showcaseNext');
+    const showcaseVideo = document.getElementById('showcaseMainVideo');
+    const timeline = document.querySelector('.sc-timeline');
+    const progress = document.getElementById('showcaseProgress');
+    const time = document.getElementById('showcaseTime');
+    const videoArea = document.getElementById('showcaseVideoArea') || document.querySelector('.showcase-video-area');
+
+    if (showcaseVideo && !showcaseVideo.dataset.eventsBound) {
+      showcaseVideo.dataset.eventsBound = 'true';
+
+      showcaseVideo.addEventListener('timeupdate', () => {
+        if (showcaseVideo.duration) {
+          const pct = (showcaseVideo.currentTime / showcaseVideo.duration) * 100;
+          if (progress) progress.style.width = `${pct}%`;
+          if (time) {
+            time.textContent = `${formatShowcaseTime(showcaseVideo.currentTime)} / ${formatShowcaseTime(showcaseVideo.duration)}`;
+          }
+        }
+      });
+
+      showcaseVideo.addEventListener('play', () => {
+        if (play) {
+          play.innerHTML = '<svg class="ui-icon" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
+        }
+      });
+
+      showcaseVideo.addEventListener('pause', () => {
+        if (play) {
+          play.innerHTML = '<svg class="ui-icon" aria-hidden="true"><use href="#icon-play"></use></svg>';
+        }
+      });
+
+      showcaseVideo.addEventListener('loadedmetadata', () => {
+        if (time && showcaseVideo.duration) {
+          time.textContent = `${formatShowcaseTime(showcaseVideo.currentTime)} / ${formatShowcaseTime(showcaseVideo.duration)}`;
+        }
+      });
+    }
+
+    if (timeline && !timeline.dataset.bound) {
+      timeline.dataset.bound = 'true';
+      timeline.style.cursor = 'pointer';
+      timeline.addEventListener('click', (e) => {
+        if (!showcaseVideo || !showcaseVideo.duration) return;
+        const rect = timeline.getBoundingClientRect();
+        const pos = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+        showcaseVideo.currentTime = pos * showcaseVideo.duration;
+      });
+    }
+
+    if (videoArea && !videoArea.dataset.clickBound) {
+      videoArea.dataset.clickBound = 'true';
+      videoArea.addEventListener('click', (e) => {
+        if (e.target.closest('#showcaseBadge') || e.target.closest('.showcase-controls')) return;
+        if (showcaseVideo) {
+          if (showcaseVideo.paused) {
+            showcaseVideo.play().catch(() => {});
+          } else {
+            showcaseVideo.pause();
+          }
+        }
+      });
+    }
+
     if (!previous || !play || !next || previous.dataset.bound) return;
     previous.dataset.bound = 'true';
 
@@ -1728,10 +1867,19 @@
       updateShowcaseDisplay();
     });
 
-    play.addEventListener('click', () => {
-      const project = dynamicShowcaseProjects[currentShowcaseIndex % dynamicShowcaseProjects.length];
-      if (typeof window.openModal === 'function') {
-        window.openModal(project.label || project.plainTitle || 'Featured Project', project.meta || project.category || 'Commercial · 4K HDR', project.file || project.assetId);
+    play.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (showcaseVideo) {
+        if (showcaseVideo.paused) {
+          showcaseVideo.play().catch(() => {});
+        } else {
+          showcaseVideo.pause();
+        }
+      } else {
+        const project = dynamicShowcaseProjects[currentShowcaseIndex % dynamicShowcaseProjects.length];
+        if (typeof window.openModal === 'function') {
+          window.openModal(project.label || project.plainTitle || 'Featured Project', project.meta || project.category || 'Commercial · 4K HDR', project.file || project.assetId);
+        }
       }
     });
 
@@ -1743,14 +1891,14 @@
     const baseProject = {
       title: showcase.title || '<em>Urban</em><br>Mirage',
       plainTitle: showcase.plainTitle || 'Urban Mirage',
-      assetId: showcase.assetId || 'asset-urban-mirage',
-      file: showcase.file || 'uploaded-video/no-1.mp4',
+      assetId: showcase.assetId || 'asset-showcase-featured',
+      file: showcase.file || 'uploaded-video/custom_mtykrpr1_betufull_places_showing_1080p_20260912120058.mp4',
       label: showcase.plainTitle || 'Featured Showcase',
       meta: showcase.category || 'Commercial · 4K HDR',
       category: showcase.category || 'Commercial · 4K HDR',
       badge: showcase.badge || 'Featured',
-      time: showcase.duration || '2:34 / 4:12',
-      progress: showcase.progress || '61%',
+      time: showcase.duration || '0:00 / 0:00',
+      progress: showcase.progress || '0%',
       description: showcase.description || '',
       productionTime: showcase.productionTime || '4 wks',
       locations: showcase.locations || '2 cities',
