@@ -66,7 +66,7 @@ export const DashboardPage: React.FC = () => {
   };
 
   const formatBytes = (bytes: number) => {
-    if (!bytes) return '0 B';
+    if (!bytes || isNaN(bytes) || bytes <= 0) return '0 B';
     const k = 1024;
     const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
@@ -176,7 +176,7 @@ export const DashboardPage: React.FC = () => {
               <span className="text-emerald-400">● LIVE</span>
             </div>
             <div className="text-2xl font-bold font-mono text-slate-100">
-              {socData?.metrics.activeStreams ?? 0}
+              {socData?.metrics?.activeStreams ?? 0}
             </div>
             <p className="text-[11px] text-slate-500 mt-1">Authenticated range requests</p>
           </div>
@@ -187,7 +187,7 @@ export const DashboardPage: React.FC = () => {
               <span className="text-red-400">● ENFORCED</span>
             </div>
             <div className="text-2xl font-bold font-mono text-red-400">
-              {socData?.metrics.blockedAttempts ?? 0}
+              {socData?.metrics?.blockedAttempts ?? 0}
             </div>
             <p className="text-[11px] text-slate-500 mt-1">Expired tokens, hotlinks, scraping</p>
           </div>
@@ -198,7 +198,7 @@ export const DashboardPage: React.FC = () => {
               <span className="text-amber-400">● TRIPPED</span>
             </div>
             <div className="text-2xl font-bold font-mono text-amber-400">
-              {socData?.metrics.devtoolsTriggers ?? 0}
+              {socData?.metrics?.devtoolsTriggers ?? 0}
             </div>
             <p className="text-[11px] text-slate-500 mt-1">Console & inspector triggers</p>
           </div>
@@ -209,7 +209,7 @@ export const DashboardPage: React.FC = () => {
               <span className="text-sky-400">● THROTTLED</span>
             </div>
             <div className="text-2xl font-bold font-mono text-sky-400">
-              {socData?.metrics.rateLimitViolations ?? 0}
+              {socData?.metrics?.rateLimitViolations ?? 0}
             </div>
             <p className="text-[11px] text-slate-500 mt-1">Automated request thresholds hit</p>
           </div>

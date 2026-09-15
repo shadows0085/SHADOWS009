@@ -130,16 +130,17 @@ exports.handler = async (event, context) => {
       body: JSON.stringify({
         success: true,
         data: {
-          activeStreams: 3,
-          blockedAttempts: 0,
-          devToolsTriggers: 0,
-          recentEvents: [
-            {
-              timestamp: new Date().toLocaleTimeString(),
-              type: 'AUTHENTICATION_SUCCESS',
-              details: 'Netlify Vault Session active'
-            }
-          ]
+          metrics: {
+            totalStreams: 12,
+            activeStreams: 3,
+            blockedAttempts: 0,
+            devtoolsTriggers: 0,
+            rateLimitViolations: 0,
+            honeypotHits: 0
+          },
+          activeSessions: [],
+          activeTickets: [],
+          systemTime: new Date().toISOString()
         }
       })
     };

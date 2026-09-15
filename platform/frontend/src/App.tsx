@@ -41,43 +41,104 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode; requiredRole?: strin
   return <>{children}</>;
 };
 
+interface ErrorBoundaryState {
+  hasError: boolean;
+  error: Error | null;
+}
+
+class GlobalErrorBoundary extends React.Component<{ children: React.ReactNode }, ErrorBoundaryState> {
+  constructor(props: { children: React.ReactNode }) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error('[Admin Console Fault]:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen bg-dark-900 flex items-center justify-center p-6 text-slate-100 font-sans">
+          <div className="max-w-md w-full glass-panel p-8 rounded-2xl border border-red-500/30 text-center space-y-4 shadow-2xl">
+            <div className="w-12 h-12 mx-auto rounded-xl bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-400">
+              <span className="text-xl">⚠️</span>
+            </div>
+            <h2 className="text-lg font-bold text-slate-100">Console Session Exception</h2>
+            <p className="text-xs text-slate-400 font-mono">
+              {this.state.error?.message || 'A render exception occurred in the dashboard view.'}
+            </p>
+            <div className="pt-2 flex gap-3 justify-center">
+              <button
+                onClick={() => {
+                  this.setState({ hasError: false, error: null });
+                  window.location.reload();
+                }}
+                className="px-4 py-2 rounded-lg bg-brand-gold text-dark-900 text-xs font-bold hover:bg-brand-goldHover transition"
+              >
+                Reload Console
+              </button>
+              <button
+                onClick={() => {
+                  sessionStorage.clear();
+                  window.location.href = '/admin/login';
+                }}
+                className="px-4 py-2 rounded-lg bg-slate-800 text-slate-200 text-xs font-medium hover:bg-slate-700 transition"
+              >
+                Reset Session
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 export const App: React.FC = () => {
   return (
-    <AuthProvider>
-      <BrowserRouter basename="/admin">
-        <Routes>
-          <Route path="/login" element={<LoginPage />} />
+    <GlobalErrorBoundary>
+      <AuthProvider>
+        <BrowserRouter basename="/admin">
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
 
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <AdminLayout />
-              </ProtectedRoute>
-            }
-          >
-            <Route index element={<Navigate to="/dashboard" replace />} />
-            <Route path="dashboard" element={<DashboardPage />} />
-            <Route path="portfolio" element={<PortfolioCMSPage />} />
-            <Route path="editor" element={<CodeEditorPage />} />
-            <Route path="site-control" element={<SiteControllerPage />} />
-            <Route path="videos" element={<VideosPage />} />
-            <Route path="upload" element={<UploadPage />} />
-            <Route path="audit-logs" element={<AuditLogsPage />} />
-            <Route path="security" element={<SecuritySettingsPage />} />
             <Route
-              path="admins"
+              path="/"
               element={
-                <ProtectedRoute requiredRole="SUPER_ADMIN">
-                  <AdminManagementPage />
+                <ProtectedRoute>
+                  <AdminLayout />
                 </ProtectedRoute>
               }
-            />
-          </Route>
+            >
+              <Route index element={<Navigate to="/dashboard" replace />} />
+              <Route path="dashboard" element={<DashboardPage />} />
+              <Route path="portfolio" element={<PortfolioCMSPage />} />
+              <Route path="editor" element={<CodeEditorPage />} />
+              <Route path="site-control" element={<SiteControllerPage />} />
+              <Route path="videos" element={<VideosPage />} />
+              <Route path="upload" element={<UploadPage />} />
+              <Route path="audit-logs" element={<AuditLogsPage />} />
+              <Route path="security" element={<SecuritySettingsPage />} />
+              <Route
+                path="admins"
+                element={
+                  <ProtectedRoute requiredRole="SUPER_ADMIN">
+                    <AdminManagementPage />
+                  </ProtectedRoute>
+                }
+              />
+            </Route>
 
-          <Route path="*" element={<Navigate to="/dashboard" replace />} />
-        </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+            <Route path="*" element={<Navigate to="/dashboard" replace />} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
+    </GlobalErrorBoundary>
   );
 };

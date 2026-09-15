@@ -203,16 +203,17 @@ export async function handleStaticFallback(
     return {
       success: true,
       data: {
-        activeStreams: 3,
-        blockedAttempts: 0,
-        devToolsTriggers: 0,
-        recentEvents: [
-          {
-            timestamp: new Date().toLocaleTimeString(),
-            type: 'AUTHENTICATION_SUCCESS',
-            details: 'Session token issued to Master Architect'
-          }
-        ]
+        metrics: {
+          totalStreams: 12,
+          activeStreams: 3,
+          blockedAttempts: 0,
+          devtoolsTriggers: 0,
+          rateLimitViolations: 0,
+          honeypotHits: 0
+        },
+        activeSessions: [],
+        activeTickets: [],
+        systemTime: new Date().toISOString()
       }
     };
   }
