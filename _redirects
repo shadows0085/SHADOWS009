@@ -1,6 +1,9 @@
 # Auto-correct relative URLs like /index.html/admin/login
 /index.html/admin/*    /admin/:splat    301!
 
+# Backend API Proxy (Uncomment and replace with your Render/Railway backend URL if hosting on Netlify)
+# /api/*                 https://your-backend-app.onrender.com/api/:splat  200!
+
 # Admin Panel SPA routes (React Vite Platform)
 /admin/*               /admin/index.html   200
 /admin                 /admin/index.html   200

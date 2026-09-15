@@ -9,6 +9,7 @@
     "build:all": "npm install && cd platform/backend && npm install && npx prisma generate && npx tsc && cd ../frontend && npm install && npm run build && cd ../.. && node -e \"const fs=require('fs'); fs.cpSync('platform/frontend/dist','admin',{recursive:true});\"",
     "start": "node server.js",
     "dev": "node server.js",
+    "reset:password": "node reset_password.js",
     "chrome": "start chrome http://localhost:3000 || node server.js",
     "serve": "node server.js"
   },

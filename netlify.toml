@@ -8,6 +8,14 @@
   status = 301
   force = true
 
+# Backend API Proxy (Uncomment and set your Render/Railway backend URL if hosting on Netlify)
+# Netlify is a static host and cannot run Node.js/Express/SQLite directly.
+# [[redirects]]
+#   from = "/api/*"
+#   to = "https://your-backend-app.onrender.com/api/:splat"
+#   status = 200
+#   force = true
+
 # Admin Panel SPA (React Router at /admin and /admin/*)
 [[redirects]]
   from = "/admin/*"
