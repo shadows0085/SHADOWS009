@@ -102,35 +102,41 @@ export const PortfolioCMSPage: React.FC = () => {
         PortfolioService.getAll(),
         PortfolioService.getAvailableVideos().catch(() => [])
       ]);
-      if (videosList && videosList.length > 0) {
+      if (videosList && Array.isArray(videosList) && videosList.length > 0) {
         setAvailableVideos(videosList);
       }
-      setHero(data.hero);
-      setProjects(data.portfolio);
-      setHeroSrc(data.hero.src);
-      setHeroLabel(data.hero.label);
-      setHeroBadge(data.hero.badge);
+      if (data) {
+        const projList = data.portfolio || (data as any).projects || [];
+        setProjects(Array.isArray(projList) ? projList : []);
 
-      if (data.showcase) {
-        setShowcase(data.showcase);
-        setShowcaseTitle(data.showcase.title || '<em>Urban</em><br>Mirage');
-        setShowcasePlainTitle(data.showcase.plainTitle || 'Urban Mirage');
-        setShowcaseFile(data.showcase.file || 'uploaded-video/no-1.mp4');
-        setShowcaseCategory(data.showcase.category || 'Commercial · 4K HDR');
-        setShowcaseBadge(data.showcase.badge || 'Featured');
-        setShowcaseDesc(data.showcase.description || '');
-        setShowcaseProdTime(data.showcase.productionTime || '4 wks');
-        setShowcaseLocations(data.showcase.locations || '2 cities');
-        setShowcaseResolution(data.showcase.resolution || '4K HDR');
-        setShowcaseDuration(data.showcase.duration || '2:34 / 4:12');
-        setShowcaseProgress(data.showcase.progress || '61%');
-      }
+        if (data.hero) {
+          setHero(data.hero);
+          setHeroSrc(data.hero.src || 'uploaded-video/no-1.mp4');
+          setHeroLabel(data.hero.label || '');
+          setHeroBadge(data.hero.badge || '');
+        }
 
-      if (data.notifications) {
-        setNotifications(data.notifications);
-      } else {
-        const notifData = await PortfolioService.getNotifications();
-        setNotifications(notifData);
+        if (data.showcase) {
+          setShowcase(data.showcase);
+          setShowcaseTitle(data.showcase.title || '<em>Urban</em><br>Mirage');
+          setShowcasePlainTitle(data.showcase.plainTitle || 'Urban Mirage');
+          setShowcaseFile(data.showcase.file || 'uploaded-video/no-1.mp4');
+          setShowcaseCategory(data.showcase.category || 'Commercial · 4K HDR');
+          setShowcaseBadge(data.showcase.badge || 'Featured');
+          setShowcaseDesc(data.showcase.description || '');
+          setShowcaseProdTime(data.showcase.productionTime || '4 wks');
+          setShowcaseLocations(data.showcase.locations || '2 cities');
+          setShowcaseResolution(data.showcase.resolution || '4K HDR');
+          setShowcaseDuration(data.showcase.duration || '2:34 / 4:12');
+          setShowcaseProgress(data.showcase.progress || '61%');
+        }
+
+        if (data.notifications) {
+          setNotifications(data.notifications);
+        } else {
+          const notifData = await PortfolioService.getNotifications().catch(() => null);
+          if (notifData) setNotifications(notifData);
+        }
       }
     } catch (err: any) {
       setError(err.message || 'Failed to load portfolio CMS data.');
@@ -1056,7 +1062,7 @@ export const PortfolioCMSPage: React.FC = () => {
           <div className="flex items-center gap-2">
             <Layers className="w-5 h-5 text-brand-gold" />
             <h2 className="text-base font-semibold text-slate-100">
-              3. Portfolio Showcase Cards ({projects.length} Projects Live)
+              3. Portfolio Showcase Cards ({(projects || []).length} Projects Live)
             </h2>
           </div>
           <button
@@ -1069,7 +1075,7 @@ export const PortfolioCMSPage: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map(p => (
+          {(projects || []).map(p => (
             <div
               key={p.id}
               className="rounded-xl border border-slate-800 bg-dark-800/60 overflow-hidden flex flex-col justify-between hover:border-slate-700 transition shadow-lg group"

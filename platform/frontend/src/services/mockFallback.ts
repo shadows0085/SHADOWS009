@@ -18,7 +18,35 @@ function setStored<T>(key: string, data: T): void {
   } catch {}
 }
 
+const SAMPLE_PROJECTS = [
+  {
+    id: 'proj-1',
+    file: 'uploaded-video/project1.mp4',
+    title: 'Neon Odyssey',
+    category: 'commercial',
+    cat_label: 'Commercial VFX',
+    meta: '4K UHD • 60 FPS • Rec.709'
+  },
+  {
+    id: 'proj-2',
+    file: 'uploaded-video/project2.mp4',
+    title: 'Quantum Drift',
+    category: 'motion',
+    cat_label: 'Motion Design',
+    meta: 'Color Graded • Dolby Vision'
+  },
+  {
+    id: 'proj-3',
+    file: 'uploaded-video/project3.mp4',
+    title: 'Chronos Engine',
+    category: 'cinematic',
+    cat_label: 'Cinematic Narrative',
+    meta: 'Anamorphic 2.39:1 • ProRes 4444'
+  }
+];
+
 const DEFAULT_PORTFOLIO_DATA = {
+  version: 1,
   hero: {
     src: 'assets/hero.mp4',
     assetId: 'hero-vid-01',
@@ -37,32 +65,8 @@ const DEFAULT_PORTFOLIO_DATA = {
     productionTime: '3 Weeks',
     locations: 'Tokyo / Virtual Stage'
   },
-  projects: [
-    {
-      id: 'proj-1',
-      file: 'uploaded-video/project1.mp4',
-      title: 'Neon Odyssey',
-      category: 'commercial',
-      cat_label: 'Commercial VFX',
-      meta: '4K UHD • 60 FPS • Rec.709'
-    },
-    {
-      id: 'proj-2',
-      file: 'uploaded-video/project2.mp4',
-      title: 'Quantum Drift',
-      category: 'motion',
-      cat_label: 'Motion Design',
-      meta: 'Color Graded • Dolby Vision'
-    },
-    {
-      id: 'proj-3',
-      file: 'uploaded-video/project3.mp4',
-      title: 'Chronos Engine',
-      category: 'cinematic',
-      cat_label: 'Cinematic Narrative',
-      meta: 'Anamorphic 2.39:1 • ProRes 4444'
-    }
-  ],
+  portfolio: SAMPLE_PROJECTS,
+  projects: SAMPLE_PROJECTS,
   notifications: {
     activeId: 'notif-1',
     globalEnabled: true,
@@ -229,6 +233,9 @@ export async function handleStaticFallback(
       const newProj = JSON.parse(options.body as string);
       const data = getStored('portfolio_data', DEFAULT_PORTFOLIO_DATA);
       newProj.id = 'proj-' + Date.now();
+      if (!data.portfolio) data.portfolio = [];
+      data.portfolio.push(newProj);
+      if (!data.projects) data.projects = [];
       data.projects.push(newProj);
       setStored('portfolio_data', data);
       return { success: true, data: newProj };

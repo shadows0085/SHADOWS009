@@ -146,6 +146,78 @@ exports.handler = async (event, context) => {
     };
   }
 
+  // Portfolio CMS
+  if (path === '/portfolio') {
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({
+        success: true,
+        data: {
+          version: 1,
+          hero: {
+            src: 'assets/hero.mp4',
+            assetId: 'hero-vid-01',
+            type: 'video/mp4',
+            label: 'Cinematic Reel 2026',
+            badge: '4K ULTRA-HD'
+          },
+          showcase: {
+            title: 'CYBERPUNK NEON 2026',
+            plainTitle: 'CYBERPUNK NEON 2026',
+            assetId: 'showcase-01',
+            file: 'assets/showcase.mp4',
+            category: 'Commercial VFX',
+            badge: 'HDR10 MASTER',
+            description: 'High-octane commercial motion design with custom GPU particles and anamorphic optics.',
+            productionTime: '3 Weeks',
+            locations: 'Tokyo / Virtual Stage'
+          },
+          portfolio: [
+            {
+              id: 'proj-1',
+              file: 'uploaded-video/project1.mp4',
+              title: 'Neon Odyssey',
+              category: 'commercial',
+              cat_label: 'Commercial VFX',
+              meta: '4K UHD • 60 FPS • Rec.709'
+            },
+            {
+              id: 'proj-2',
+              file: 'uploaded-video/project2.mp4',
+              title: 'Quantum Drift',
+              category: 'motion',
+              cat_label: 'Motion Design',
+              meta: 'Color Graded • Dolby Vision'
+            },
+            {
+              id: 'proj-3',
+              file: 'uploaded-video/project3.mp4',
+              title: 'Chronos Engine',
+              category: 'cinematic',
+              cat_label: 'Cinematic Narrative',
+              meta: 'Anamorphic 2.39:1 • ProRes 4444'
+            }
+          ],
+          notifications: {
+            activeId: 'notif-1',
+            globalEnabled: true,
+            items: [
+              {
+                id: 'notif-1',
+                enabled: true,
+                title: 'Q3 Commissions Open',
+                message: 'Now accepting bookings for high-end motion design and video editing projects.',
+                badge: 'STATUS',
+                type: 'gold'
+              }
+            ]
+          }
+        }
+      })
+    };
+  }
+
   // Default fallback for any other v1 endpoint
   return {
     statusCode: 200,
