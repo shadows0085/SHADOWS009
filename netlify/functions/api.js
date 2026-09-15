@@ -1,76 +1,199 @@
 // Netlify Serverless Function for SHADOW Vault API
 // Provides complete mocked serverless API endpoints for Netlify deployments
 
+const REAL_VIDEOS = [
+  { label: 'Video 1 — Showreel / Urban Mirage (4K HDR)', path: 'uploaded-video/no-1.mp4' },
+  { label: 'Video 2 — Amber Hours / SUN ONLIGHT (4K HDR)', path: 'uploaded-video/no-2.mp4' },
+  { label: 'Custom 1 — Sunset Ocean Showreel (4K HDR)', path: 'uploaded-video/custom_mtyi0ot5_Man_looking_at_ocean_sunset_20260911231855.mp4' },
+  { label: 'Custom 2 — Urban Mirage Showcase (1080p)', path: 'uploaded-video/custom_mtykrpr1_betufull_places_showing_1080p_20260912120058.mp4' },
+  { label: 'Custom 3 — Motion Designer Creating Shadow (VFX)', path: 'uploaded-video/custom_mtycguww_Motion_designer_creating_Shadow_____20260910152753.mp4' },
+  { label: 'Custom 4 — Silent Waters Nordic Reel (1080p)', path: 'uploaded-video/custom_mtxz93i8_betufull_places_showing_1080p_20260912120058.mp4' },
+  { label: 'Custom 5 — Velocity Launch Campaign (1080p)', path: 'uploaded-video/custom_mtydc5of_betufull_places_showing_1080p_20260912120058.mp4' },
+  { label: 'Custom 6 — Neon Reverie Tokyo Reel (4K)', path: 'uploaded-video/custom_mtxxwlrt_Man_looking_at_ocean_sunset_20260911231855.mp4' }
+];
+
+function resolveAssetToVideoUrl(assetId) {
+  if (!assetId) return '/uploaded-video/no-1.mp4';
+  const clean = String(assetId).replace(/^\/+/, '').trim();
+  if (clean.startsWith('uploaded-video/')) return `/${clean}`;
+  if (clean.startsWith('http://') || clean.startsWith('https://')) return clean;
+
+  if (clean === 'asset-hero-showreel' || clean === 'assets/hero.mp4' || clean === 'hero-vid-01') {
+    return '/uploaded-video/custom_mtyi0ot5_Man_looking_at_ocean_sunset_20260911231855.mp4';
+  }
+  if (clean === 'asset-showcase-featured' || clean === 'asset-showcase' || clean === 'assets/showcase.mp4' || clean === 'showcase-01') {
+    return '/uploaded-video/custom_mtykrpr1_betufull_places_showing_1080p_20260912120058.mp4';
+  }
+  if (clean === 'asset-urban-mirage' || clean === 'project-urban-mirage' || clean === 'proj-1' || clean === 'uploaded-video/project1.mp4') {
+    return '/uploaded-video/no-1.mp4';
+  }
+  if (clean === 'asset-sun-onlight' || clean === 'project-sun-onlight') {
+    return '/uploaded-video/custom_mtycguww_Motion_designer_creating_Shadow_____20260910152753.mp4';
+  }
+  if (clean === 'asset-silent-waters' || clean === 'project-silent-waters') {
+    return '/uploaded-video/custom_mtxz93i8_betufull_places_showing_1080p_20260912120058.mp4';
+  }
+  if (clean === 'asset-amber-hours' || clean === 'project-amber-hours' || clean === 'proj-2' || clean === 'uploaded-video/project2.mp4') {
+    return '/uploaded-video/no-2.mp4';
+  }
+  if (clean === 'asset-velocity' || clean === 'project-velocity') {
+    return '/uploaded-video/custom_mtydc5of_betufull_places_showing_1080p_20260912120058.mp4';
+  }
+  if (clean === 'asset-neon-reverie' || clean === 'project-neon-reverie') {
+    return '/uploaded-video/custom_mtxxwlrt_Man_looking_at_ocean_sunset_20260911231855.mp4';
+  }
+  if (clean === 'proj-3' || clean === 'uploaded-video/project3.mp4') {
+    return '/uploaded-video/custom_mtycguww_Motion_designer_creating_Shadow_____20260910152753.mp4';
+  }
+
+  return '/uploaded-video/no-1.mp4';
+}
+
 const DEFAULT_PORTFOLIO = {
-  version: 1,
+  version: 8,
   hero: {
-    src: 'assets/hero.mp4',
-    assetId: 'hero-vid-01',
-    type: 'video/mp4',
-    label: 'Cinematic Reel 2026',
-    badge: '4K ULTRA-HD'
+    src: 'uploaded-video/custom_mtyi0ot5_Man_looking_at_ocean_sunset_20260911231855.mp4',
+    assetId: 'asset-hero-showreel',
+    type: 'video',
+    label: 'Showreel 2026',
+    badge: '◆ 4K HDR'
   },
   showcase: {
-    title: 'CYBERPUNK NEON 2026',
-    plainTitle: 'CYBERPUNK NEON 2026',
-    assetId: 'showcase-01',
-    file: 'assets/showcase.mp4',
-    category: 'Commercial VFX',
-    badge: 'HDR10 MASTER',
-    description: 'High-octane commercial motion design with custom GPU particles and anamorphic optics.',
-    productionTime: '3 Weeks',
-    locations: 'Tokyo / Virtual Stage'
+    title: '<em>Urban</em><br>Mirage',
+    plainTitle: 'Urban Mirage 2026',
+    assetId: 'asset-showcase-featured',
+    file: 'uploaded-video/custom_mtykrpr1_betufull_places_showing_1080p_20260912120058.mp4',
+    category: 'Commercial · 4K HDR',
+    badge: 'Featured',
+    description: 'An architectural visual symphony — this commercial campaign captured the interplay of light, glass, and geometric symmetry through precision cinematography and master color grading.',
+    productionTime: '4 wks',
+    locations: '2 cities',
+    resolution: '4K HDR',
+    duration: '2:34 / 4:12',
+    progress: '61%'
   },
   portfolio: [
     {
-      id: 'proj-1',
-      file: 'uploaded-video/project1.mp4',
-      title: 'Neon Odyssey',
+      id: 'project-urban-mirage',
+      assetId: 'asset-urban-mirage',
+      file: 'uploaded-video/no-1.mp4',
+      title: 'Urban Mirage',
       category: 'commercial',
-      cat_label: 'Commercial VFX',
-      meta: '4K UHD • 60 FPS • Rec.709'
+      cat_label: 'Commercial · 4K HDR',
+      meta: 'Real Estate Campaign — 2024',
+      size: 'card-lg'
     },
     {
-      id: 'proj-2',
-      file: 'uploaded-video/project2.mp4',
-      title: 'Quantum Drift',
+      id: 'project-sun-onlight',
+      assetId: 'asset-sun-onlight',
+      file: 'uploaded-video/custom_mtycguww_Motion_designer_creating_Shadow_____20260910152753.mp4',
+      title: 'SUN ONLIGHT',
+      category: 'commercial',
+      cat_label: 'Commercial · 4K HDR',
+      meta: 'Solar Energy Campaign — 2025',
+      size: 'card-sm'
+    },
+    {
+      id: 'project-silent-waters',
+      assetId: 'asset-silent-waters',
+      file: 'uploaded-video/custom_mtxz93i8_betufull_places_showing_1080p_20260912120058.mp4',
+      title: 'Silent Waters',
+      category: 'film',
+      cat_label: 'Film · 4K DCI HDR',
+      meta: 'Nordic Narrative Short — 2025',
+      size: 'card-sm'
+    },
+    {
+      id: 'project-amber-hours',
+      assetId: 'asset-amber-hours',
+      file: 'uploaded-video/no-2.mp4',
+      title: 'Amber Hours',
       category: 'motion',
-      cat_label: 'Motion Design',
-      meta: 'Color Graded • Dolby Vision'
+      cat_label: 'Motion · 4K 60FPS',
+      meta: 'Luxury Horology Film — 2024',
+      size: 'card-lg'
     },
     {
-      id: 'proj-3',
-      file: 'uploaded-video/project3.mp4',
-      title: 'Chronos Engine',
-      category: 'cinematic',
-      cat_label: 'Cinematic Narrative',
-      meta: 'Anamorphic 2.39:1 • ProRes 4444'
+      id: 'project-velocity',
+      assetId: 'asset-velocity',
+      file: 'uploaded-video/custom_mtydc5of_betufull_places_showing_1080p_20260912120058.mp4',
+      title: 'Velocity',
+      category: 'vfx',
+      cat_label: 'VFX · Super Slow-Mos',
+      meta: 'Motorsport Launch — 2025',
+      size: 'card-md'
+    },
+    {
+      id: 'project-neon-reverie',
+      assetId: 'asset-neon-reverie',
+      file: 'uploaded-video/custom_mtxxwlrt_Man_looking_at_ocean_sunset_20260911231855.mp4',
+      title: 'Neon Reverie',
+      category: 'motion',
+      cat_label: 'Motion · Cybernetic Flow',
+      meta: 'Tokyo Nocturne Showcase — 2025',
+      size: 'card-md'
     }
   ],
   projects: [
     {
-      id: 'proj-1',
-      file: 'uploaded-video/project1.mp4',
-      title: 'Neon Odyssey',
+      id: 'project-urban-mirage',
+      assetId: 'asset-urban-mirage',
+      file: 'uploaded-video/no-1.mp4',
+      title: 'Urban Mirage',
       category: 'commercial',
-      cat_label: 'Commercial VFX',
-      meta: '4K UHD • 60 FPS • Rec.709'
+      cat_label: 'Commercial · 4K HDR',
+      meta: 'Real Estate Campaign — 2024',
+      size: 'card-lg'
     },
     {
-      id: 'proj-2',
-      file: 'uploaded-video/project2.mp4',
-      title: 'Quantum Drift',
+      id: 'project-sun-onlight',
+      assetId: 'asset-sun-onlight',
+      file: 'uploaded-video/custom_mtycguww_Motion_designer_creating_Shadow_____20260910152753.mp4',
+      title: 'SUN ONLIGHT',
+      category: 'commercial',
+      cat_label: 'Commercial · 4K HDR',
+      meta: 'Solar Energy Campaign — 2025',
+      size: 'card-sm'
+    },
+    {
+      id: 'project-silent-waters',
+      assetId: 'asset-silent-waters',
+      file: 'uploaded-video/custom_mtxz93i8_betufull_places_showing_1080p_20260912120058.mp4',
+      title: 'Silent Waters',
+      category: 'film',
+      cat_label: 'Film · 4K DCI HDR',
+      meta: 'Nordic Narrative Short — 2025',
+      size: 'card-sm'
+    },
+    {
+      id: 'project-amber-hours',
+      assetId: 'asset-amber-hours',
+      file: 'uploaded-video/no-2.mp4',
+      title: 'Amber Hours',
       category: 'motion',
-      cat_label: 'Motion Design',
-      meta: 'Color Graded • Dolby Vision'
+      cat_label: 'Motion · 4K 60FPS',
+      meta: 'Luxury Horology Film — 2024',
+      size: 'card-lg'
     },
     {
-      id: 'proj-3',
-      file: 'uploaded-video/project3.mp4',
-      title: 'Chronos Engine',
-      category: 'cinematic',
-      cat_label: 'Cinematic Narrative',
-      meta: 'Anamorphic 2.39:1 • ProRes 4444'
+      id: 'project-velocity',
+      assetId: 'asset-velocity',
+      file: 'uploaded-video/custom_mtydc5of_betufull_places_showing_1080p_20260912120058.mp4',
+      title: 'Velocity',
+      category: 'vfx',
+      cat_label: 'VFX · Super Slow-Mos',
+      meta: 'Motorsport Launch — 2025',
+      size: 'card-md'
+    },
+    {
+      id: 'project-neon-reverie',
+      assetId: 'asset-neon-reverie',
+      file: 'uploaded-video/custom_mtxxwlrt_Man_looking_at_ocean_sunset_20260911231855.mp4',
+      title: 'Neon Reverie',
+      category: 'motion',
+      cat_label: 'Motion · Cybernetic Flow',
+      meta: 'Tokyo Nocturne Showcase — 2025',
+      size: 'card-md'
     }
   ],
   notifications: {
@@ -80,9 +203,9 @@ const DEFAULT_PORTFOLIO = {
       {
         id: 'notif-1',
         enabled: true,
-        title: 'Q3 Commissions Open',
-        message: 'Now accepting bookings for high-end motion design and video editing projects.',
-        badge: 'STATUS',
+        title: 'Open for Bookings',
+        message: 'Now accepting commercial video editing & motion design projects for 2025/2026.',
+        badge: 'AVAILABLE',
         type: 'gold'
       }
     ]
@@ -341,15 +464,85 @@ exports.handler = async (event, context) => {
       headers,
       body: JSON.stringify({
         success: true,
-        data: [
-          { label: 'Video 1 — Showreel (4K HDR)', path: 'uploaded-video/project1.mp4' },
-          { label: 'Video 2 — Quantum Drift (4K HDR)', path: 'uploaded-video/project2.mp4' }
-        ]
+        data: REAL_VIDEOS
       })
     };
   }
 
-  // 10. File Editor
+  // 10. Media Preview Streaming: /media/preview/:assetId and /api/media/preview/:assetId
+  if (path.startsWith('/media/preview/')) {
+    const rawAsset = path.replace('/media/preview/', '');
+    const assetId = decodeURIComponent(rawAsset).trim();
+    const resolvedUrl = resolveAssetToVideoUrl(assetId);
+    return {
+      statusCode: 302,
+      headers: {
+        'Location': resolvedUrl,
+        'Cache-Control': 'public, max-age=3600',
+        'Access-Control-Allow-Origin': '*'
+      },
+      body: ''
+    };
+  }
+
+  // 11. Media Ticket Issuance for Secure Viewer: /media/ticket and /api/media/ticket
+  if (path === '/media/ticket' && method === 'POST') {
+    let assetId = 'asset-urban-mirage';
+    try {
+      if (event.body) {
+        const b = JSON.parse(event.body);
+        if (b.assetId) assetId = b.assetId;
+      }
+    } catch (_) {}
+
+    const streamUrl = resolveAssetToVideoUrl(assetId);
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({
+        success: true,
+        streamUrl: streamUrl,
+        expiresAt: Date.now() + 86400000,
+        ttlSeconds: 86400,
+        watermark: {
+          sessionLabel: 'SESSION: NETLIFY-VAULT',
+          timestamp: new Date().toISOString(),
+          brand: 'SHADOW SECURE VAULT',
+          tier: 'none'
+        }
+      })
+    };
+  }
+
+  // 12. Media Stream: /media/stream/:token
+  if (path.startsWith('/media/stream/')) {
+    return {
+      statusCode: 302,
+      headers: {
+        'Location': '/uploaded-video/no-1.mp4',
+        'Cache-Control': 'public, max-age=3600',
+        'Access-Control-Allow-Origin': '*'
+      },
+      body: ''
+    };
+  }
+
+  // 13. Video Player Modal Ticket: /videos/:id/ticket
+  if (path.match(/^\/videos\/[^/]+\/ticket$/)) {
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({
+        success: true,
+        data: {
+          streamUrl: '/uploaded-video/no-1.mp4',
+          ttlSeconds: 300
+        }
+      })
+    };
+  }
+
+  // 14. File Editor
   if (path === '/files/tree') {
     return {
       statusCode: 200,

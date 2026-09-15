@@ -82,16 +82,37 @@ export const PortfolioCMSPage: React.FC = () => {
 
   const [availableVideos, setAvailableVideos] = useState<Array<{ label: string; path: string; filename?: string }>>([
     { label: 'Video 1 — Showreel / Urban Mirage (4K HDR)', path: 'uploaded-video/no-1.mp4' },
-    { label: 'Video 2 — SUN ONLIGHT / Motorsport (4K HDR)', path: 'uploaded-video/no-2.mp4' }
+    { label: 'Video 2 — Amber Hours / SUN ONLIGHT (4K HDR)', path: 'uploaded-video/no-2.mp4' },
+    { label: 'Custom 1 — Sunset Ocean Showreel (4K HDR)', path: 'uploaded-video/custom_mtyi0ot5_Man_looking_at_ocean_sunset_20260911231855.mp4' },
+    { label: 'Custom 2 — Urban Mirage Showcase (1080p)', path: 'uploaded-video/custom_mtykrpr1_betufull_places_showing_1080p_20260912120058.mp4' },
+    { label: 'Custom 3 — Motion Designer Creating Shadow (VFX)', path: 'uploaded-video/custom_mtycguww_Motion_designer_creating_Shadow_____20260910152753.mp4' },
+    { label: 'Custom 4 — Silent Waters Nordic Reel (1080p)', path: 'uploaded-video/custom_mtxz93i8_betufull_places_showing_1080p_20260912120058.mp4' },
+    { label: 'Custom 5 — Velocity Launch Campaign (1080p)', path: 'uploaded-video/custom_mtydc5of_betufull_places_showing_1080p_20260912120058.mp4' },
+    { label: 'Custom 6 — Neon Reverie Tokyo Reel (4K)', path: 'uploaded-video/custom_mtxxwlrt_Man_looking_at_ocean_sunset_20260911231855.mp4' }
   ]);
 
   const resolveVideoSrc = (filePathOrUrl?: string) => {
     if (!filePathOrUrl) return '';
-    if (filePathOrUrl.startsWith('/api/media/preview/')) return filePathOrUrl;
-    if (filePathOrUrl.startsWith('api/media/preview/')) return `/${filePathOrUrl}`;
     if (filePathOrUrl.startsWith('http://') || filePathOrUrl.startsWith('https://')) return filePathOrUrl;
-    const cleanPath = filePathOrUrl.replace(/^\/+/, '');
-    return `/api/media/preview/${cleanPath}`;
+    const clean = filePathOrUrl.replace(/^\/+/, '').trim();
+
+    // Map legacy dummy/sample paths to real active files
+    if (clean === 'assets/hero.mp4') return '/uploaded-video/custom_mtyi0ot5_Man_looking_at_ocean_sunset_20260911231855.mp4';
+    if (clean === 'assets/showcase.mp4') return '/uploaded-video/custom_mtykrpr1_betufull_places_showing_1080p_20260912120058.mp4';
+    if (clean === 'uploaded-video/project1.mp4') return '/uploaded-video/no-1.mp4';
+    if (clean === 'uploaded-video/project2.mp4') return '/uploaded-video/no-2.mp4';
+    if (clean === 'uploaded-video/project3.mp4') return '/uploaded-video/custom_mtycguww_Motion_designer_creating_Shadow_____20260910152753.mp4';
+
+    // Direct static path for uploaded videos
+    if (clean.startsWith('uploaded-video/')) {
+      return `/${clean}`;
+    }
+
+    if (clean.startsWith('api/media/preview/')) {
+      return `/${clean}`;
+    }
+
+    return `/api/media/preview/${encodeURIComponent(clean)}`;
   };
 
   const loadData = async () => {
@@ -106,21 +127,34 @@ export const PortfolioCMSPage: React.FC = () => {
         setAvailableVideos(videosList);
       }
       if (data) {
-        const projList = data.portfolio || (data as any).projects || [];
+        let projList = data.portfolio || (data as any).projects || [];
+        if (Array.isArray(projList)) {
+          // Normalize any legacy dummy file paths in projects
+          projList = projList.map((p: any) => {
+            if (p.file === 'uploaded-video/project1.mp4') return { ...p, file: 'uploaded-video/no-1.mp4' };
+            if (p.file === 'uploaded-video/project2.mp4') return { ...p, file: 'uploaded-video/no-2.mp4' };
+            if (p.file === 'uploaded-video/project3.mp4') return { ...p, file: 'uploaded-video/custom_mtycguww_Motion_designer_creating_Shadow_____20260910152753.mp4' };
+            return p;
+          });
+        }
         setProjects(Array.isArray(projList) ? projList : []);
 
         if (data.hero) {
-          setHero(data.hero);
-          setHeroSrc(data.hero.src || 'uploaded-video/no-1.mp4');
+          let hSrc = data.hero.src || 'uploaded-video/custom_mtyi0ot5_Man_looking_at_ocean_sunset_20260911231855.mp4';
+          if (hSrc === 'assets/hero.mp4') hSrc = 'uploaded-video/custom_mtyi0ot5_Man_looking_at_ocean_sunset_20260911231855.mp4';
+          setHero({ ...data.hero, src: hSrc });
+          setHeroSrc(hSrc);
           setHeroLabel(data.hero.label || '');
           setHeroBadge(data.hero.badge || '');
         }
 
         if (data.showcase) {
-          setShowcase(data.showcase);
+          let scFile = data.showcase.file || 'uploaded-video/custom_mtykrpr1_betufull_places_showing_1080p_20260912120058.mp4';
+          if (scFile === 'assets/showcase.mp4') scFile = 'uploaded-video/custom_mtykrpr1_betufull_places_showing_1080p_20260912120058.mp4';
+          setShowcase({ ...data.showcase, file: scFile });
           setShowcaseTitle(data.showcase.title || '<em>Urban</em><br>Mirage');
           setShowcasePlainTitle(data.showcase.plainTitle || 'Urban Mirage');
-          setShowcaseFile(data.showcase.file || 'uploaded-video/no-1.mp4');
+          setShowcaseFile(scFile);
           setShowcaseCategory(data.showcase.category || 'Commercial · 4K HDR');
           setShowcaseBadge(data.showcase.badge || 'Featured');
           setShowcaseDesc(data.showcase.description || '');

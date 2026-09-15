@@ -1884,9 +1884,14 @@
       : '';
     const animOpacity = v.thumb ? ' style="opacity:0"' : '';
 
-    // Resolve streamable preview URL via protected in-site media preview route
-    const previewAssetId = v.file || v.assetId || v.id || '';
-    const previewSrc = previewAssetId ? `/api/media/preview/${encodeURIComponent(previewAssetId)}` : '';
+    // Resolve streamable preview URL via direct file or protected route
+    let previewSrc = '';
+    if (v.file && (v.file.startsWith('uploaded-video/') || v.file.startsWith('/uploaded-video/'))) {
+      previewSrc = '/' + v.file.replace(/^\/+/, '');
+    } else {
+      const previewAssetId = v.file || v.assetId || v.id || '';
+      previewSrc = previewAssetId ? `/api/media/preview/${encodeURIComponent(previewAssetId)}` : '';
+    }
 
     // A muted, inline preview plays smoothly while this card is hovered. The full
     // project still opens in the secure viewer when the card is clicked.
@@ -2108,14 +2113,19 @@
     if (labelEl && hero.label) labelEl.textContent = hero.label;
     if (badgeEl && hero.badge) badgeEl.textContent = hero.badge;
 
-    const heroAssetId = hero.assetId || 'asset-hero-showreel';
-    const targetSrc = `/api/media/preview/${encodeURIComponent(heroAssetId)}`;
+    let targetSrc = '';
+    if (hero.src && (hero.src.startsWith('uploaded-video/') || hero.src.startsWith('/uploaded-video/'))) {
+      targetSrc = '/' + hero.src.replace(/^\/+/, '');
+    } else {
+      const heroAssetId = hero.assetId || 'asset-hero-showreel';
+      targetSrc = `/api/media/preview/${encodeURIComponent(heroAssetId)}`;
+    }
 
-    if (hero.type === 'video') {
+    if (hero.type === 'video' || !hero.type) {
       const existingVideo = inner.querySelector('video#heroMainVideo');
       if (existingVideo) {
         const curSrc = existingVideo.getAttribute('src');
-        if (!curSrc || curSrc.includes('uploaded-video') || curSrc !== targetSrc) {
+        if (!curSrc || (curSrc !== targetSrc && !curSrc.endsWith(targetSrc))) {
           existingVideo.src = targetSrc;
           existingVideo.load();
           existingVideo.play().catch(()=>{});
@@ -2126,10 +2136,10 @@
 
   const DEFAULT_DATA = {
     hero: {
-      src: "uploaded-video/no-1.mp4",
+      src: "uploaded-video/custom_mtyi0ot5_Man_looking_at_ocean_sunset_20260911231855.mp4",
       assetId: "asset-hero-showreel",
       type: "video",
-      label: "Showreel 2025",
+      label: "Showreel 2026",
       badge: "◆ 4K HDR"
     },
     portfolio: [
@@ -2151,7 +2161,7 @@
       {
         id: "project-sun-onlight",
         assetId: "asset-sun-onlight",
-        file: "uploaded-video/no-2.mp4",
+        file: "uploaded-video/custom_mtycguww_Motion_designer_creating_Shadow_____20260910152753.mp4",
         title: "SUN ONLIGHT",
         category: "commercial",
         cat_label: "Commercial · 4K HDR",
@@ -2166,7 +2176,7 @@
       {
         id: "project-silent-waters",
         assetId: "asset-silent-waters",
-        file: "uploaded-video/no-1.mp4",
+        file: "uploaded-video/custom_mtxz93i8_betufull_places_showing_1080p_20260912120058.mp4",
         title: "Silent Waters",
         category: "film",
         cat_label: "Film · 4K DCI HDR",
@@ -2196,7 +2206,7 @@
       {
         id: "project-velocity",
         assetId: "asset-velocity",
-        file: "uploaded-video/no-2.mp4",
+        file: "uploaded-video/custom_mtydc5of_betufull_places_showing_1080p_20260912120058.mp4",
         title: "Velocity",
         category: "vfx",
         cat_label: "VFX · Super Slow-Mo",
@@ -2211,7 +2221,7 @@
       {
         id: "project-neon-reverie",
         assetId: "asset-neon-reverie",
-        file: "uploaded-video/no-1.mp4",
+        file: "uploaded-video/custom_mtxxwlrt_Man_looking_at_ocean_sunset_20260911231855.mp4",
         title: "Neon Reverie",
         category: "motion",
         cat_label: "Motion · Cybernetic Flow",
