@@ -1,3 +1,5 @@
+import { handleStaticFallback } from './mockFallback';
+
 export class ApiClient {
   private static accessToken: string | null = null;
 
@@ -57,6 +59,12 @@ export class ApiClient {
       const json = await response.json().catch(() => ({}));
 
       if (!response.ok) {
+        // Resilient fallback for static CDNs (Netlify, Vercel, Live Server) when no backend is deployed
+        if (response.status === 404) {
+          const fallback = await handleStaticFallback(endpoint, options);
+          if (fallback) return fallback as any;
+        }
+
         return {
           success: false,
           error: json.error || { code: 'HTTP_ERROR', message: `Request failed with status ${response.status}` }
@@ -65,6 +73,10 @@ export class ApiClient {
 
       return json;
     } catch (err: any) {
+      // Offline / Network fallback for static hosts
+      const fallback = await handleStaticFallback(endpoint, options);
+      if (fallback) return fallback as any;
+
       return {
         success: false,
         error: { code: 'NETWORK_ERROR', message: err.message || 'Network connection failure' }

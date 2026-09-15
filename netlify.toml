@@ -1,5 +1,6 @@
 [build]
   publish = "."
+  functions = "netlify/functions"
 
 # Auto-correct relative URLs like /index.html/admin/login
 [[redirects]]
@@ -8,13 +9,12 @@
   status = 301
   force = true
 
-# Backend API Proxy (Uncomment and set your Render/Railway backend URL if hosting on Netlify)
-# Netlify is a static host and cannot run Node.js/Express/SQLite directly.
-# [[redirects]]
-#   from = "/api/*"
-#   to = "https://your-backend-app.onrender.com/api/:splat"
-#   status = 200
-#   force = true
+# Netlify Serverless Function API Route (Handles /api/* on Netlify)
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+  force = true
 
 # Admin Panel SPA (React Router at /admin and /admin/*)
 [[redirects]]
